@@ -17,13 +17,14 @@ public class CellPanel extends JPanel {
 
     public void initialize(){
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.setBackground(Color.green);
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                setBackground(Color.red);
-            }
-        });
+    }
+
+    public void setAlive(){
+        this.setBackground(Color.lightGray);
+    }
+
+    public void setDead(){
+        this.setBackground(Color.DARK_GRAY);
     }
 
 

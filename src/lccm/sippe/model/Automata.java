@@ -3,6 +3,7 @@ package lccm.sippe.model;
 import java.util.Random;
 
 public class Automata {
+
 	protected int grid[][], clone[][];					// Cells grid and its copy
 	static int DIM = 10;								// Default dimension for the grid
 
@@ -28,6 +29,15 @@ public class Automata {
 			}
  		}
 	}
+
+	public int[][] getGrid() {
+		return grid;
+	}
+
+	public void setGrid(int[][] grid) {
+		this.grid = grid;
+	}
+
 
 	public int getState(int i, int j) {					// Getter for a cell's state
 		return grid[i][j];
@@ -89,7 +99,7 @@ public class Automata {
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
 				if (grid[i][j]==1) System.out.print("X");
-				else System.out.print(" ");
+				else System.out.print("-");
 			}
 			System.out.println();
 		}

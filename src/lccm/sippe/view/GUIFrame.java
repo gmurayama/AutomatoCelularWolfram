@@ -9,17 +9,22 @@ import java.awt.*;
  */
 public class GUIFrame extends JFrame{
 
-    private JButton nextButton;
-    private JButton prevButton;
+    private JButton startStopButton;
     private JMenuItem newSimulationMenu;
     private JMenuItem aboutMenu;
     private JTextArea historyTextArea;
     private CellGridPanel cellGridPanel;
     private int MIN_HEIGHT = 500;
     private int MIN_WIDTH = 600;
+    private int DEFAULT_SIZE = 10;
 
     public GUIFrame(){
-        setCellGridPanel(new CellGridPanel(50,50));
+        setCellGridPanel(new CellGridPanel(DEFAULT_SIZE, DEFAULT_SIZE));
+        initGUI();
+    }
+
+    public GUIFrame(int xCellCount, int yCellCount){
+        setCellGridPanel(new CellGridPanel(xCellCount, yCellCount));
         initGUI();
     }
 
@@ -57,15 +62,12 @@ public class GUIFrame extends JFrame{
         getHistoryTextArea().setEnabled(false);
         JScrollPane jScrollPane = new JScrollPane(getHistoryTextArea());
         jPanel.add(jScrollPane, BorderLayout.LINE_START);
-        //Drawing panel
         jPanel.add(getCellGridPanel(), BorderLayout.CENTER);
 
         //dashboard: south
         flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        setNextButton(new JButton("Next"));
-        setPrevButton(new JButton("Prev"));
-        flowLayoutPanel.add(getPrevButton());
-        flowLayoutPanel.add(getNextButton());
+        setStartStopButton(new JButton("Start"));
+        flowLayoutPanel.add(getStartStopButton());
         jPanel.add(flowLayoutPanel, BorderLayout.SOUTH);
 
         this.setJMenuBar(jMenuBar);
@@ -74,21 +76,7 @@ public class GUIFrame extends JFrame{
         this.setVisible(true);
     }
 
-    public JButton getNextButton() {
-        return nextButton;
-    }
 
-    public void setNextButton(JButton nextButton) {
-        this.nextButton = nextButton;
-    }
-
-    public JButton getPrevButton() {
-        return prevButton;
-    }
-
-    public void setPrevButton(JButton prevButton) {
-        this.prevButton = prevButton;
-    }
 
     public JMenuItem getNewSimulationMenu() {
         return newSimulationMenu;
@@ -120,5 +108,13 @@ public class GUIFrame extends JFrame{
 
     public void setCellGridPanel(CellGridPanel cellGridPanel) {
         this.cellGridPanel = cellGridPanel;
+    }
+
+    public JButton getStartStopButton() {
+        return startStopButton;
+    }
+
+    public void setStartStopButton(JButton startStopButton) {
+        this.startStopButton = startStopButton;
     }
 }
