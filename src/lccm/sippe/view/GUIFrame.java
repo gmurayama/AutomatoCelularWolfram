@@ -5,18 +5,20 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
- * Created by duder on 13/01/16.
+ * @author: Luis Carlos Castillo Martinez on 18/01/16.
+ * Université Blaise Pascal
+ * lcarlos.asimov@gmail.com
+ * github.com/luisccastillo
  */
 public class GUIFrame extends JFrame{
 
     private JButton startStopButton;
     private JMenuItem newSimulationMenu;
     private JMenuItem aboutMenu;
-    private JTextArea historyTextArea;
     private CellGridPanel cellGridPanel;
-    private int MIN_HEIGHT = 500;
-    private int MIN_WIDTH = 600;
-    private int DEFAULT_SIZE = 10;
+    private static int MIN_HEIGHT = 600;
+    private static int MIN_WIDTH = 600;
+    private static int DEFAULT_SIZE = 10;
 
     public GUIFrame(){
         setCellGridPanel(new CellGridPanel(DEFAULT_SIZE, DEFAULT_SIZE));
@@ -42,7 +44,7 @@ public class GUIFrame extends JFrame{
         JMenuBar jMenuBar = new JMenuBar();
         jMenu = new JMenu("File");
         jMenuBar.add(jMenu);
-        setNewSimulationMenu(new JMenuItem("New simulation"));
+        setNewSimulationMenu(new JMenuItem("Preferences"));
         jMenu.add(getNewSimulationMenu());
         jMenu = new JMenu("Help");
         jMenuBar.add(jMenu);
@@ -56,12 +58,6 @@ public class GUIFrame extends JFrame{
         jPanel.add(flowLayoutPanel, BorderLayout.PAGE_START);
 
         //dashboard: center
-        setHistoryTextArea(new JTextArea());
-        getHistoryTextArea().setRows(10);
-        getHistoryTextArea().setColumns(10);
-        getHistoryTextArea().setEnabled(false);
-        JScrollPane jScrollPane = new JScrollPane(getHistoryTextArea());
-        jPanel.add(jScrollPane, BorderLayout.LINE_START);
         jPanel.add(getCellGridPanel(), BorderLayout.CENTER);
 
         //dashboard: south
@@ -92,14 +88,6 @@ public class GUIFrame extends JFrame{
 
     public void setAboutMenu(JMenuItem aboutMenu) {
         this.aboutMenu = aboutMenu;
-    }
-
-    public JTextArea getHistoryTextArea() {
-        return historyTextArea;
-    }
-
-    public void setHistoryTextArea(JTextArea historyTextArea) {
-        this.historyTextArea = historyTextArea;
     }
 
     public CellGridPanel getCellGridPanel() {

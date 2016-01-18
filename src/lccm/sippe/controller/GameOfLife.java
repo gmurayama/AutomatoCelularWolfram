@@ -2,8 +2,14 @@ package lccm.sippe.controller;
 
 import lccm.sippe.model.Automata;
 import lccm.sippe.view.GUIFrame;
-
 import javax.swing.*;
+
+/**
+ * @author: Luis Carlos Castillo Martinez on 18/01/16.
+ * Université Blaise Pascal
+ * lcarlos.asimov@gmail.com
+ * github.com/luisccastillo
+ */
 
 public class GameOfLife {
 	public static void main(String[] arg) {
@@ -12,8 +18,8 @@ public class GameOfLife {
             public void run() {
                 int TEST = 10;
 
-                GUIFrame displayWindow = new GUIFrame(TEST,TEST);
-                Automata automata = new Automata(TEST,TEST);
+                GUIFrame displayWindow = new GUIFrame(40,80);
+                Automata automata = new Automata(40,80);
                 MainController mainController = new MainController(displayWindow, automata);
             }
         });

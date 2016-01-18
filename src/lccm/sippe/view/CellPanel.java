@@ -2,12 +2,12 @@ package lccm.sippe.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 
 /**
- * Created by duder on 16/01/16.
+ * @author: Luis Carlos Castillo Martinez on 18/01/16.
+ * Université Blaise Pascal
+ * lcarlos.asimov@gmail.com
+ * github.com/luisccastillo
  */
 public class CellPanel extends JPanel {
 
