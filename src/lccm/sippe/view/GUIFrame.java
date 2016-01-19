@@ -52,9 +52,8 @@ public class GUIFrame extends JFrame{
         jMenu.add(getAboutMenu());
 
         //dashboard: north
-        JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,40,0));
-        flowLayoutPanel.add(new JLabel("History"));
-        flowLayoutPanel.add(new JLabel("Generation"));
+        JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        flowLayoutPanel.add(new JLabel("Alive cells: "));
         jPanel.add(flowLayoutPanel, BorderLayout.PAGE_START);
 
         //dashboard: center

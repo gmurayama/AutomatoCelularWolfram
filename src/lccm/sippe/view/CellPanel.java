@@ -2,6 +2,9 @@ package lccm.sippe.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * @author: Luis Carlos Castillo Martinez on 18/01/16.
@@ -9,7 +12,7 @@ import java.awt.*;
  * lcarlos.asimov@gmail.com
  * github.com/luisccastillo
  */
-public class CellPanel extends JPanel {
+public class CellPanel extends JPanel{
 
     public CellPanel(){
         initialize();
@@ -26,6 +29,7 @@ public class CellPanel extends JPanel {
     public void setDead(){
         this.setBackground(Color.DARK_GRAY);
     }
+
 
 
 }
