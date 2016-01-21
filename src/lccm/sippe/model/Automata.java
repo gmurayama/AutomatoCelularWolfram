@@ -52,10 +52,16 @@ public class Automata {
 	}
 
 	public void init() {								// Cells grid random initialization
+		/*
 		Random r = new Random();
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
 				grid[i][j]= r.nextInt(2);
+			}
+		}*/
+		for (int i=0; i<grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				grid[i][j] = 0;
 			}
 		}
 	}

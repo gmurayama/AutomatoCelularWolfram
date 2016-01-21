@@ -18,8 +18,8 @@ public class GameOfLife {
             public void run() {
                 int TEST = 10;
 
-                GUIFrame displayWindow = new GUIFrame(10,10);
-                Automata automata = new Automata(10,10);
+                GUIFrame displayWindow = new GUIFrame(60, 60);
+                Automata automata = new Automata(60, 60);
                 MainController mainController = new MainController(displayWindow, automata);
             }
         });

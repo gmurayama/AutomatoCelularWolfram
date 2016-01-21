@@ -15,18 +15,18 @@ public class GUIFrame extends JFrame{
     private JButton startStopButton;
     private JMenuItem newSimulationMenu;
     private JMenuItem aboutMenu;
-    private CellGridPanel cellGridPanel;
+    private CellGridPanelController cellGridPanelController;
     private static int MIN_HEIGHT = 600;
     private static int MIN_WIDTH = 600;
     private static int DEFAULT_SIZE = 10;
 
     public GUIFrame(){
-        setCellGridPanel(new CellGridPanel(DEFAULT_SIZE, DEFAULT_SIZE));
+        setCellGridPanelController(new CellGridPanelController(DEFAULT_SIZE, DEFAULT_SIZE));
         initGUI();
     }
 
     public GUIFrame(int xCellCount, int yCellCount){
-        setCellGridPanel(new CellGridPanel(xCellCount, yCellCount));
+        setCellGridPanelController(new CellGridPanelController(xCellCount, yCellCount));
         initGUI();
     }
 
@@ -57,7 +57,7 @@ public class GUIFrame extends JFrame{
         jPanel.add(flowLayoutPanel, BorderLayout.PAGE_START);
 
         //dashboard: center
-        jPanel.add(getCellGridPanel(), BorderLayout.CENTER);
+        jPanel.add(getCellGridPanelController(), BorderLayout.CENTER);
 
         //dashboard: south
         flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -89,12 +89,12 @@ public class GUIFrame extends JFrame{
         this.aboutMenu = aboutMenu;
     }
 
-    public CellGridPanel getCellGridPanel() {
-        return cellGridPanel;
+    public CellGridPanelController getCellGridPanelController() {
+        return cellGridPanelController;
     }
 
-    public void setCellGridPanel(CellGridPanel cellGridPanel) {
-        this.cellGridPanel = cellGridPanel;
+    public void setCellGridPanelController(CellGridPanelController cellGridPanelController) {
+        this.cellGridPanelController = cellGridPanelController;
     }
 
     public JButton getStartStopButton() {

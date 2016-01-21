@@ -14,6 +14,8 @@ import java.awt.event.MouseListener;
  */
 public class CellPanel extends JPanel{
 
+    private boolean isAlive;
+
     public CellPanel(){
         initialize();
     }
@@ -24,11 +26,17 @@ public class CellPanel extends JPanel{
 
     public void setAlive(){
         this.setBackground(Color.lightGray);
+        this.isAlive = true;
     }
 
     public void setDead(){
         this.setBackground(Color.DARK_GRAY);
+        this.isAlive = false;
     }
+
+    public boolean isAlive(){
+        return isAlive;
+    };
 
 
 
