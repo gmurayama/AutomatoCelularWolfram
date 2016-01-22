@@ -25,7 +25,7 @@ public class CellPanel extends JPanel{
     }
 
     public void setAlive(){
-        this.setBackground(Color.lightGray);
+        this.setBackground(Color.green);
         this.isAlive = true;
     }
 

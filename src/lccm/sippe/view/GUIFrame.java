@@ -15,11 +15,15 @@ import java.awt.*;
 public class GUIFrame extends JFrame{
 
     private JButton startStopButton;
+    private JButton clearGridButton;
+    private JButton randomizeGridButton;
     private JMenuItem newSimulationMenu;
+    private JLabel aliveCellsLabel;
+    private JLabel generationLabel;
     private JMenuItem aboutMenu;
     private CellGridPanelController cellGridPanelController;
-    private static int MIN_HEIGHT = 600;
-    private static int MIN_WIDTH = 600;
+    private static int MIN_HEIGHT = 700;
+    private static int MIN_WIDTH = 700;
     private static int DEFAULT_SIZE = 10;
 
     public GUIFrame(){
@@ -55,7 +59,10 @@ public class GUIFrame extends JFrame{
 
         //dashboard: north
         JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        flowLayoutPanel.add(new JLabel("Alive cells: "));
+        setAliveCellsLabel(new JLabel("Alive cells: 0"));
+        flowLayoutPanel.add(getAliveCellsLabel());
+        setGenerationLabel(new JLabel("Generation: 0"));
+        flowLayoutPanel.add(getGenerationLabel());
         jPanel.add(flowLayoutPanel, BorderLayout.PAGE_START);
 
         //dashboard: center
@@ -63,6 +70,12 @@ public class GUIFrame extends JFrame{
 
         //dashboard: south
         flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        setClearGridButton(new JButton("Clear"));
+        getClearGridButton().setEnabled(false);
+        flowLayoutPanel.add(getClearGridButton());
+        setRandomizeGridButton(new JButton("Randomize"));
+        flowLayoutPanel.add(getRandomizeGridButton());
+        flowLayoutPanel.add(new JSeparator(SwingConstants.VERTICAL));
         setStartStopButton(new JButton("Start"));
         flowLayoutPanel.add(getStartStopButton());
         jPanel.add(flowLayoutPanel, BorderLayout.SOUTH);
@@ -105,5 +118,37 @@ public class GUIFrame extends JFrame{
 
     public void setStartStopButton(JButton startStopButton) {
         this.startStopButton = startStopButton;
+    }
+
+    public JButton getClearGridButton() {
+        return clearGridButton;
+    }
+
+    public void setClearGridButton(JButton clearGridButton) {
+        this.clearGridButton = clearGridButton;
+    }
+
+    public JButton getRandomizeGridButton() {
+        return randomizeGridButton;
+    }
+
+    public void setRandomizeGridButton(JButton randomizeGridButton) {
+        this.randomizeGridButton = randomizeGridButton;
+    }
+
+    public JLabel getAliveCellsLabel() {
+        return aliveCellsLabel;
+    }
+
+    public void setAliveCellsLabel(JLabel aliveCellsLabel) {
+        this.aliveCellsLabel = aliveCellsLabel;
+    }
+
+    public JLabel getGenerationLabel() {
+        return generationLabel;
+    }
+
+    public void setGenerationLabel(JLabel generationLabel) {
+        this.generationLabel = generationLabel;
     }
 }

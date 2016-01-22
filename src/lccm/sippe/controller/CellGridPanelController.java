@@ -34,6 +34,7 @@ public class CellGridPanelController extends JPanel{
     public void initialize(){
         this.setBackground(Color.gray);
         this.setLayout(new GridLayout(xCellCount, yCellCount));
+
         CellPanel cellPanel;
         N  = xCellCount;
 

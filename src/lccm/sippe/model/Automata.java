@@ -61,13 +61,13 @@ public class Automata {
 	}
 
 	public void randomGridInit(){
-		int[][] randomGrid = new int[grid.length][grid[0].length];
-		for (int i=0; i < randomGrid.length; i++) {
-			for (int j=0; j < randomGrid[0].length; j++) {
-				randomGrid[i][j]= random.nextInt(2);
+	//	int[][] randomGrid = new int[grid.length][grid[0].length];
+		for (int i=0; i < grid.length; i++) {
+			for (int j=0; j < grid[0].length; j++) {
+				grid[i][j]= random.nextInt(2);
 			}
 		}
-		grid = randomGrid;
+	//	grid = randomGrid;
 	}
 
 
