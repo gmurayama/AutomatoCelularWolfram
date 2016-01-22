@@ -1,5 +1,7 @@
 package lccm.sippe.view;
 
+import lccm.sippe.controller.CellGridPanelController;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

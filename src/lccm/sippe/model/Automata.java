@@ -6,6 +6,7 @@ public class Automata {
 
 	protected int grid[][], clone[][];					// Cells grid and its copy
 	static int DIM = 10;								// Default dimension for the grid
+	private static Random random = new Random();;
 
 	public Automata(int lineNb, int columnNb) {			//	Automata constructor
 		grid= new int[lineNb][columnNb];
@@ -52,19 +53,23 @@ public class Automata {
 	}
 
 	public void init() {								// Cells grid random initialization
-		/*
-		Random r = new Random();
-		for (int i=0; i<grid.length; i++) {
-			for (int j=0; j<grid[0].length; j++) {
-				grid[i][j]= r.nextInt(2);
-			}
-		}*/
 		for (int i=0; i<grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				grid[i][j] = 0;
 			}
 		}
 	}
+
+	public void randomGridInit(){
+		int[][] randomGrid = new int[grid.length][grid[0].length];
+		for (int i=0; i < randomGrid.length; i++) {
+			for (int j=0; j < randomGrid[0].length; j++) {
+				randomGrid[i][j]= random.nextInt(2);
+			}
+		}
+		grid = randomGrid;
+	}
+
 
 	private int countLivingNeighbors(int i, int j) {	// Counting of a cell's living neighbors
 		int s=0;

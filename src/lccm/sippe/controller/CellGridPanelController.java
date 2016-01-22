@@ -1,4 +1,6 @@
-package lccm.sippe.view;
+package lccm.sippe.controller;
+
+import lccm.sippe.view.CellPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,15 +46,6 @@ public class CellGridPanelController extends JPanel{
 
     }
 
-
-    /*
-    Crear una copia del arrelgo para despues pasarla y modificar el valor en elarrelgo principal
-    cambiar el valor del elemento de uno a zero,
-    activar o desactivar el elemento del panel para cambiar su color y modificar su valo r
-    actualizar el conttrolador pasando como parametro el arrelgo modificado.
-
-    /
-     */
     private int[][] modifyGridAtPosition(int xPosition, int yPosition) {
         int[][] gridCopy= grid;
         if (gridCopy[xPosition][yPosition] == 1){
@@ -65,22 +58,21 @@ public class CellGridPanelController extends JPanel{
     }
 
     private CellPanel createCellPanel(final int row, final int col) {
-        final CellPanel cp = new CellPanel();
-        cp.addMouseListener(new MouseListener() {
+        final CellPanel cellPanel = new CellPanel();
+        cellPanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {}
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-                CellPanel gb = CellGridPanelController.this.getCellAtXYPosition(row, col);
+                CellPanel eventedCellPanel = CellGridPanelController.this.getCellAtXYPosition(row, col);
                 CellGridPanelController.this.grid = modifyGridAtPosition(row,col);
-                if (gb.isAlive() == true){
-                    gb.setDead();
+                if (eventedCellPanel.isAlive() == true){
+                    eventedCellPanel.setDead();
                 }
                 else{
-                    gb.setAlive();
+                    eventedCellPanel.setAlive();
                 }
-                //System.out.println("r" + row + ",c" + col);
             }
 
             @Override
@@ -92,23 +84,20 @@ public class CellGridPanelController extends JPanel{
             @Override
             public void mouseExited(MouseEvent mouseEvent) {}
         });
-        return cp;
+        return cellPanel;
     }
 
 
     public void fillCellGrid(int grid[][]){
         this.grid = grid;
         CellPanel cellPanel;
-        // int linearCount = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j<grid[0].length;  j++) {
                 cellPanel = this.getCellAtXYPosition(i,j);
-                //cellPanel = cellGridPanelController.getCell(linearCount);
                 if (grid[i][j] == 1)
                     cellPanel.setAlive();
                 else
                     cellPanel.setDead();
-                //linearCount++;
             }
         }
     }
