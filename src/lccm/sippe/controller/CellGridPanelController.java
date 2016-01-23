@@ -113,6 +113,13 @@ public class CellGridPanelController extends JPanel{
         return (CellPanel)getComponent(index);
     }
 
+    public void emptyGrid(){
+        for (int i = 0; i < xCellCount * yCellCount; i++){
+            CellPanel cellPanel = (CellPanel)this.getComponent(i);
+            cellPanel.setDead();
+        }
+    }
+
     public int[][] getGrid() {
         return grid;
     }
