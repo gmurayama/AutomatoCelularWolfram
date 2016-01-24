@@ -60,7 +60,7 @@ public class Automata {
 		}
 	}
 
-	public void randomGridInit(){
+	public void randomInit(){
 		for (int i=0; i < grid.length; i++) {
 			for (int j=0; j < grid[0].length; j++) {
 				grid[i][j]= random.nextInt(2);
@@ -97,11 +97,13 @@ public class Automata {
 				}
 			}
 		}
+
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
 				grid[i][j]=clone[i][j];
 			}
 		}
+
 	}
 
 	public void display() {								// Display of the grid

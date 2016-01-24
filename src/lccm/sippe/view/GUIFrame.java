@@ -1,6 +1,6 @@
 package lccm.sippe.view;
 
-import lccm.sippe.controller.CellGridPanelController;
+import lccm.sippe.controller.CellPanelGridController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,18 +21,18 @@ public class GUIFrame extends JFrame{
     private JLabel aliveCellsLabel;
     private JLabel generationLabel;
     private JMenuItem aboutMenu;
-    private CellGridPanelController cellGridPanelController;
+    private CellPanelGridController cellGridPanelController;
     private static int MIN_HEIGHT = 700;
     private static int MIN_WIDTH = 700;
     private static int DEFAULT_SIZE = 10;
 
     public GUIFrame(){
-        setCellGridPanelController(new CellGridPanelController(DEFAULT_SIZE, DEFAULT_SIZE));
+        setCellGridPanelController(new CellPanelGridController(DEFAULT_SIZE, DEFAULT_SIZE));
         initGUI();
     }
 
     public GUIFrame(int xCellCount, int yCellCount){
-        setCellGridPanelController(new CellGridPanelController(xCellCount, yCellCount));
+        setCellGridPanelController(new CellPanelGridController(xCellCount, yCellCount));
         initGUI();
     }
 
@@ -104,11 +104,11 @@ public class GUIFrame extends JFrame{
         this.aboutMenu = aboutMenu;
     }
 
-    public CellGridPanelController getCellGridPanelController() {
+    public CellPanelGridController getCellGridPanelController() {
         return cellGridPanelController;
     }
 
-    public void setCellGridPanelController(CellGridPanelController cellGridPanelController) {
+    public void setCellGridPanelController(CellPanelGridController cellGridPanelController) {
         this.cellGridPanelController = cellGridPanelController;
     }
 

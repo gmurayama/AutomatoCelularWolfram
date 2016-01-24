@@ -1,6 +1,7 @@
 package lccm.sippe;
 
 import lccm.sippe.controller.MainController;
+
 import lccm.sippe.model.Automata;
 import lccm.sippe.view.GUIFrame;
 import javax.swing.*;
@@ -14,11 +15,8 @@ import javax.swing.*;
 
 public class GameOfLife {
 	public static void main(String[] arg) {
-
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                int TEST = 10;
-
                 GUIFrame displayWindow = new GUIFrame(80, 80);
                 Automata automata = new Automata(80, 80);
                 MainController mainController = new MainController(displayWindow, automata);

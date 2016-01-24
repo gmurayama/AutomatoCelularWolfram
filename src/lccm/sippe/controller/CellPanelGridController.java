@@ -17,45 +17,32 @@ import java.awt.event.MouseListener;
  *
  *
  */
-public class CellGridPanelController extends JPanel{
+public class CellPanelGridController extends JPanel{
 
     private int xCellCount;
     private int yCellCount;
-    private int N;
-    private int[][] grid;
-    private boolean isStopped;
+    private int[][] automataCopy;
 
-    public CellGridPanelController(int xCellCount, int yCellCount){
+    public CellPanelGridController(int xCellCount, int yCellCount){
         this.xCellCount = xCellCount;
         this.yCellCount = yCellCount;
         initialize();
     }
 
-    public void initialize(){
+    private void initialize(){
         this.setBackground(Color.gray);
         this.setLayout(new GridLayout(xCellCount, yCellCount));
+        addCellPanels();
+    }
 
+    private void addCellPanels(){
         CellPanel cellPanel;
-        N  = xCellCount;
-
         for (int i = 0; i < xCellCount * yCellCount; i++){
             int row = i / xCellCount;
             int col = i % yCellCount;
             cellPanel = createCellPanel(row, col);
             this.add(cellPanel);
         }
-
-    }
-
-    private int[][] modifyGridAtPosition(int xPosition, int yPosition) {
-        int[][] gridCopy= grid;
-        if (gridCopy[xPosition][yPosition] == 1){
-            gridCopy[xPosition][yPosition] = 0;
-        }
-        else{
-            gridCopy[xPosition][yPosition] = 1;
-        }
-        return gridCopy;
     }
 
     private CellPanel createCellPanel(final int row, final int col) {
@@ -66,14 +53,8 @@ public class CellGridPanelController extends JPanel{
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-                CellPanel eventedCellPanel = CellGridPanelController.this.getCellAtXYPosition(row, col);
-                CellGridPanelController.this.grid = modifyGridAtPosition(row,col);
-                if (eventedCellPanel.isAlive() == true){
-                    eventedCellPanel.setDead();
-                }
-                else{
-                    eventedCellPanel.setAlive();
-                }
+                modifyCellPanelAtPosition(row, col);
+                modifyAutomataAtPosition(row, col);
             }
 
             @Override
@@ -88,14 +69,27 @@ public class CellGridPanelController extends JPanel{
         return cellPanel;
     }
 
+    private void modifyCellPanelAtPosition(int row, int col){
+        CellPanel cellPanel = getCellPanelAtPosition(row, col);
+        if (cellPanel.isAlive() == true)
+            cellPanel.setDead();
+        else
+            cellPanel.setAlive();
+    }
 
-    public void fillCellGrid(int grid[][]){
-        this.grid = grid;
+    private void modifyAutomataAtPosition(int row, int col) {
+        if (automataCopy[row][col] == 1)
+            automataCopy[row][col] = 0;
+        else
+            automataCopy[row][col] = 1;
+    }
+
+    public void fillCellPanelGrid(){
         CellPanel cellPanel;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j<grid[0].length;  j++) {
-                cellPanel = this.getCellAtXYPosition(i,j);
-                if (grid[i][j] == 1)
+        for (int i = 0; i < automataCopy.length; i++) {
+            for (int j = 0; j < automataCopy[0].length; j++) {
+                cellPanel = getCellPanelAtPosition(i,j);
+                if (automataCopy[i][j] == 1)
                     cellPanel.setAlive();
                 else
                     cellPanel.setDead();
@@ -103,13 +97,9 @@ public class CellGridPanelController extends JPanel{
         }
     }
 
-
-    public CellPanel getCell(int position){
-        return (CellPanel)getComponent(position);
-    }
-
-    public CellPanel getCellAtXYPosition(int xPosition, int yPosition){
-        int index = xPosition * N + yPosition;
+    public CellPanel getCellPanelAtPosition(int row, int col){
+        int index = row * xCellCount + col;
+        //int index = row * automataCopy[0].length + col;
         return (CellPanel)getComponent(index);
     }
 
@@ -120,16 +110,13 @@ public class CellGridPanelController extends JPanel{
         }
     }
 
-    public int[][] getGrid() {
-        return grid;
+    public int[][] getAutomataCopy() {
+        return automataCopy;
     }
 
-    public void setGrid(int[][] grid) {
-        this.grid = grid;
+    public void setAutomataCopy(int[][] automataCopy) {
+        this.automataCopy = automataCopy;
     }
 
-    public boolean setIsStopped(boolean a){
-        return true;
-    }
 
 }
