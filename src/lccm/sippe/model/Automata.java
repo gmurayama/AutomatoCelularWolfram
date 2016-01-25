@@ -6,7 +6,7 @@ public class Automata {
 
 	protected int grid[][], clone[][];					// Cells grid and its copy
 	static int DIM = 10;								// Default dimension for the grid
-	private static Random random = new Random();;
+	private static Random random = new Random();
 
 	public Automata(int lineNb, int columnNb) {			//	Automata constructor
 		grid= new int[lineNb][columnNb];
@@ -56,6 +56,7 @@ public class Automata {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				grid[i][j] = 0;
+				clone[i][j] = 0;
 			}
 		}
 	}
@@ -98,7 +99,7 @@ public class Automata {
                         clone[i][j] = 0;
                     if ((nbLivNgb == 2 || nbLivNgb == 3))
                         clone[i][j] = 1;
-                    if (nbLivNgb > 3)
+					if (nbLivNgb > 3)
                         clone[i][j]= 0;
                 }
                 else {

@@ -59,7 +59,7 @@ public class MainController {
         @Override
         public void run(){
             while (true)
-                if (isRunning == true){
+                if (isRunning){
                     automata.evolve();
                     cellGridPanelController.setAutomataCopy(automata.getGrid());
                     cellGridPanelController.fillCellPanelGrid();
@@ -98,7 +98,7 @@ public class MainController {
     *  modifies the setEnabled property of the JButton elements
     */
     private void startStopEvolution(){
-        if (isRunning == false){
+        if (!isRunning){
             guiFrame.getStartStopButton().setText("Stop");
             guiFrame.getRandomizeGridButton().setEnabled(false);
             guiFrame.getClearGridButton().setEnabled(false);
@@ -125,6 +125,7 @@ public class MainController {
      */
     private void clearGrid(){
         automata.init();
+        cellGridPanelController.setAutomataCopy(automata.getGrid());
         cellGridPanelController.emptyGrid();
     }
 }
