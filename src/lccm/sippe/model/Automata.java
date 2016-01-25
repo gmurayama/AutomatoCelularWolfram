@@ -22,10 +22,10 @@ public class Automata {
 		if (this !=aa) {
 			grid = new int[aa.grid.length][aa.grid[0].length];
 			clone = new int[aa.grid.length][aa.grid[0].length];
-			for (int i=0;i<aa.grid.length;i++) {
-				for (int j=0;j<aa.grid[0].length;j++) {
-					grid[i][j]=aa.grid[i][j];
-					clone[i][j]=aa.clone[i][j];
+			for (int i = 0; i < aa.grid.length; i++) {
+				for (int j = 0; j < aa.grid[0].length; j++) {
+					grid[i][j] = aa.grid[i][j];
+					clone[i][j] = aa.clone[i][j];
 				}
 			}
  		}
@@ -53,7 +53,7 @@ public class Automata {
 	}
 
 	public void init() {								// Cells grid random initialization
-		for (int i=0; i<grid.length; i++) {
+		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				grid[i][j] = 0;
 			}
@@ -61,13 +61,12 @@ public class Automata {
 	}
 
 	public void randomInit(){
-		for (int i=0; i < grid.length; i++) {
-			for (int j=0; j < grid[0].length; j++) {
-				grid[i][j]= random.nextInt(2);
-			}
-		}
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j] = random.nextInt(2);
+            }
+        }
 	}
-
 
 	private int countLivingNeighbors(int i, int j) {	// Counting of a cell's living neighbors
 		int s=0;
@@ -82,25 +81,45 @@ public class Automata {
 		return s;
 	}
 
+/*
+    Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+    Any live cell with two or three live neighbours lives on to the next generation.
+    Any live cell with more than three live neighbours dies, as if by over-population.
+    Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+  */
 	public void evolve() {								// Evolution to the next generation
 		int nbLivNgb;
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
 				nbLivNgb=countLivingNeighbors(i,j);
-				if (grid[i][j]==1) {
+
+                if (grid[i][j] == 1) {
+                    if (nbLivNgb < 2)
+                        clone[i][j] = 0;
+                    else if ((nbLivNgb == 2 || nbLivNgb == 3))
+                        clone[i][j] = 1;
+                    else if (nbLivNgb > 3)
+                        clone[i][j]= 0;
+                }
+                else {
+                    if (nbLivNgb == 3)
+                        clone[i][j] = 1;
+                }
+                /*
+                if (grid[i][j]==1) {
 					if ((nbLivNgb<2)||(nbLivNgb>3)) clone[i][j]=0;
 					else clone[i][j]=1;
 				}
 				else {
 					if (nbLivNgb>=3) clone[i][j]=1;
 					else clone[i][j]=0;
-				}
+				}*/
 			}
 		}
 
-		for (int i=0; i<grid.length; i++) {
-			for (int j=0; j<grid[0].length; j++) {
-				grid[i][j]=clone[i][j];
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				grid[i][j] = clone[i][j];
 			}
 		}
 

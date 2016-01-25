@@ -21,11 +21,11 @@ public class CellPanel extends JPanel{
     }
 
     public void initialize(){
-        this.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public void setAlive(){
-        this.setBackground(Color.green);
+        this.setBackground(Color.GREEN);
         this.isAlive = true;
     }
 

@@ -71,7 +71,7 @@ public class CellPanelGridController extends JPanel{
 
     private void modifyCellPanelAtPosition(int row, int col){
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
-        if (cellPanel.isAlive() == true)
+        if (cellPanel.isAlive())
             cellPanel.setDead();
         else
             cellPanel.setAlive();
@@ -99,13 +99,12 @@ public class CellPanelGridController extends JPanel{
 
     public CellPanel getCellPanelAtPosition(int row, int col){
         int index = row * xCellCount + col;
-        //int index = row * automataCopy[0].length + col;
         return (CellPanel)getComponent(index);
     }
 
     public void emptyGrid(){
-        for (int i = 0; i < xCellCount * yCellCount; i++){
-            CellPanel cellPanel = (CellPanel)this.getComponent(i);
+        for (int i = 0; i < xCellCount * yCellCount; i++) {
+            CellPanel cellPanel = (CellPanel) this.getComponent(i);
             cellPanel.setDead();
         }
     }
@@ -117,6 +116,5 @@ public class CellPanelGridController extends JPanel{
     public void setAutomataCopy(int[][] automataCopy) {
         this.automataCopy = automataCopy;
     }
-
 
 }
