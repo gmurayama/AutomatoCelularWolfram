@@ -21,7 +21,7 @@ public class GUIFrame extends JFrame{
     private JLabel aliveCellsLabel;
     private JLabel generationLabel;
     private JMenuItem aboutMenu;
-    private CellPanelGridController cellGridPanelController;
+   private CellPanelGridController cellGridPanelController;
     private static int MIN_SIZE = 400;
     private static int DEFAULT_SIZE = 10;
 
@@ -40,7 +40,7 @@ public class GUIFrame extends JFrame{
         this.setMinimumSize(new Dimension(MIN_SIZE, MIN_SIZE));
         this.setSize(new Dimension(MIN_SIZE + 200, MIN_SIZE + 200));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setTitle("Cornway's Game of life");
+        this.setTitle("Conway's Game of life");
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
         jPanel.setBorder(new EmptyBorder(10, 10, 10, 10));

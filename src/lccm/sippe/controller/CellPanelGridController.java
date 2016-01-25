@@ -12,10 +12,6 @@ import java.awt.event.MouseListener;
  * Université Blaise Pascal
  * lcarlos.asimov@gmail.com
  * github.com/luisccastillo
- *
- * Errores: modificacion de la formula para trabajar con x,y desiguales
- *
- *
  */
 public class CellPanelGridController extends JPanel{
 
@@ -29,12 +25,15 @@ public class CellPanelGridController extends JPanel{
         initialize();
     }
 
-    private void initialize(){
+    public void initialize(){
         this.setBackground(Color.gray);
         this.setLayout(new GridLayout(xCellCount, yCellCount));
         addCellPanels();
     }
 
+    /* Creates CellPanel objects and adds them to the UI Panel
+    *  at a 1D position
+    */
     private void addCellPanels(){
         CellPanel cellPanel;
         for (int i = 0; i < xCellCount * yCellCount; i++){
@@ -45,6 +44,13 @@ public class CellPanelGridController extends JPanel{
         }
     }
 
+    /* Creates a CellPanel object at a 2D position,
+    *  adds the MouseListener event handler for the MouseClicked event in each CellPanel
+    *
+    *  @param int row the row number where the CellPanel will be located
+    *  @param int col the col number where the CellPanel will be located
+    *  @return CellPanel the created CellPanel object
+    */
     private CellPanel createCellPanel(final int row, final int col) {
         final CellPanel cellPanel = new CellPanel();
         cellPanel.addMouseListener(new MouseListener() {
@@ -69,6 +75,12 @@ public class CellPanelGridController extends JPanel{
         return cellPanel;
     }
 
+
+    /* Modifies the value of the CellPanel at a given position
+    *
+    *  @param int row the row number where the cell is located
+    *  @param int col the col number where the cell is located
+    */
     private void modifyCellPanelAtPosition(int row, int col){
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
         if (cellPanel.isAlive())
@@ -77,6 +89,11 @@ public class CellPanelGridController extends JPanel{
             cellPanel.setAlive();
     }
 
+    /* Modifies the value of the Automata array copy at a given position
+     *
+     * @param int row the row number where the cell is located
+     * @param int col the col number where the cell is located
+     */
     private void modifyAutomataAtPosition(int row, int col) {
         if (automataCopy[row][col] == 1)
             automataCopy[row][col] = 0;
@@ -84,6 +101,10 @@ public class CellPanelGridController extends JPanel{
             automataCopy[row][col] = 1;
     }
 
+    /* Iterates over the Automata array copy,
+     * finds the row, col coordinates of a CellPanel
+     * changes the state of the CellPanel
+     */
     public void fillCellPanelGrid(){
         CellPanel cellPanel;
         for (int i = 0; i < automataCopy.length; i++) {
@@ -97,11 +118,21 @@ public class CellPanelGridController extends JPanel{
         }
     }
 
+    /* Returns a CellPanel object at the specified 2D coordinates
+     *
+     * @param int row the row number where the cell is located
+     * @param int col the col number where the cell is located
+     * @return CellPanel the CellPanel found at the row, col position
+     */
     public CellPanel getCellPanelAtPosition(int row, int col){
         int index = row * xCellCount + col;
         return (CellPanel)getComponent(index);
     }
 
+    /**
+     * Iterates over the CellPanelGrid and changes the state of each
+     * CellPanel to dead
+     */
     public void emptyGrid(){
         for (int i = 0; i < xCellCount * yCellCount; i++) {
             CellPanel cellPanel = (CellPanel) this.getComponent(i);
@@ -118,3 +149,8 @@ public class CellPanelGridController extends JPanel{
     }
 
 }
+
+/*
+
+
+ */

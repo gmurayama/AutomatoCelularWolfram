@@ -96,9 +96,9 @@ public class Automata {
                 if (grid[i][j] == 1) {
                     if (nbLivNgb < 2)
                         clone[i][j] = 0;
-                    else if ((nbLivNgb == 2 || nbLivNgb == 3))
+                    if ((nbLivNgb == 2 || nbLivNgb == 3))
                         clone[i][j] = 1;
-                    else if (nbLivNgb > 3)
+                    if (nbLivNgb > 3)
                         clone[i][j]= 0;
                 }
                 else {
