@@ -5,6 +5,7 @@ import lccm.sippe.controller.CellPanelGridController;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * @author: Luis Carlos Castillo Martinez on 18/01/16.
@@ -19,9 +20,10 @@ public class GUIFrame extends JFrame{
     private JButton randomizeGridButton;
     private JMenuItem newSimulationMenu;
     private JLabel aliveCellsLabel;
+    private JSlider speedSlider;
     private JLabel generationLabel;
     private JMenuItem aboutMenu;
-   private CellPanelGridController cellGridPanelController;
+    private CellPanelGridController cellGridPanelController;
     private static int MIN_SIZE = 400;
     private static int DEFAULT_SIZE = 10;
 
@@ -38,7 +40,7 @@ public class GUIFrame extends JFrame{
     private void initGUI(){
         //Window and layout properties
         this.setMinimumSize(new Dimension(MIN_SIZE, MIN_SIZE));
-        this.setSize(new Dimension(MIN_SIZE + 200, MIN_SIZE + 200));
+        this.setSize(new Dimension(MIN_SIZE + 200, MIN_SIZE + 300));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("Conway's Game of life");
         JPanel jPanel = new JPanel();
@@ -49,10 +51,13 @@ public class GUIFrame extends JFrame{
         JMenu jMenu;
         JMenuBar jMenuBar = new JMenuBar();
         jMenu = new JMenu("File");
+        jMenu.setMnemonic(KeyEvent.VK_F);
         jMenuBar.add(jMenu);
         setNewSimulationMenu(new JMenuItem("Preferences"));
+        getNewSimulationMenu().setMnemonic(KeyEvent.VK_P);
         jMenu.add(getNewSimulationMenu());
         jMenu = new JMenu("Help");
+        jMenu.setMnemonic(KeyEvent.VK_H);
         jMenuBar.add(jMenu);
         setAboutMenu(new JMenuItem("About..."));
         jMenu.add(getAboutMenu());
@@ -61,8 +66,8 @@ public class GUIFrame extends JFrame{
         JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         setAliveCellsLabel(new JLabel("Alive cells: 0"));
         flowLayoutPanel.add(getAliveCellsLabel());
-        setGenerationLabel(new JLabel("Generation: 0"));
-        flowLayoutPanel.add(getGenerationLabel());
+        //setGenerationLabel(new JLabel("Generation: 0"));
+        //flowLayoutPanel.add(getGenerationLabel());
         jPanel.add(flowLayoutPanel, BorderLayout.PAGE_START);
 
         //dashboard: center
@@ -70,6 +75,12 @@ public class GUIFrame extends JFrame{
 
         //dashboard: south
         flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        flowLayoutPanel.add(new JLabel("Speed:"));
+        setSpeedSlider(new JSlider(50, 500, 250));
+        getSpeedSlider().setMinorTickSpacing(50);
+        getSpeedSlider().setInverted(true);
+        getSpeedSlider().setSnapToTicks(true);
+        flowLayoutPanel.add(getSpeedSlider());
         setClearGridButton(new JButton("Clear"));
         flowLayoutPanel.add(getClearGridButton());
         setRandomizeGridButton(new JButton("Randomize"));
@@ -149,5 +160,13 @@ public class GUIFrame extends JFrame{
 
     public void setGenerationLabel(JLabel generationLabel) {
         this.generationLabel = generationLabel;
+    }
+
+    public JSlider getSpeedSlider() {
+        return speedSlider;
+    }
+
+    public void setSpeedSlider(JSlider speedSlider) {
+        this.speedSlider = speedSlider;
     }
 }

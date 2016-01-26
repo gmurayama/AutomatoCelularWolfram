@@ -38,7 +38,7 @@ public class MainController {
         addGUIEventListeners();
         automata.init();
         isRunning = false;
-        speed = 100;
+        speed = guiFrame.getSpeedSlider().getValue();
         cellGridPanelController.setAutomataCopy(automata.getGrid());
         cellGridPanelController.fillCellPanelGrid();
         Thread evolutionThread = new Thread(new EvolutionThread());
@@ -63,6 +63,7 @@ public class MainController {
                     automata.evolve();
                     cellGridPanelController.setAutomataCopy(automata.getGrid());
                     cellGridPanelController.fillCellPanelGrid();
+                    //guiFrame.getAliveCellsLabel().setText("Alive Cells: "+ cellGridPanelController.getAliveCells());
                     try{
                         Thread.sleep(speed);
                     } catch (InterruptedException ex) {
@@ -102,12 +103,15 @@ public class MainController {
             guiFrame.getStartStopButton().setText("Stop");
             guiFrame.getRandomizeGridButton().setEnabled(false);
             guiFrame.getClearGridButton().setEnabled(false);
+            guiFrame.getSpeedSlider().setEnabled(false);
+            speed = guiFrame.getSpeedSlider().getValue();
             isRunning = true;
         }
         else{
             guiFrame.getStartStopButton().setText("Resume");
             guiFrame.getRandomizeGridButton().setEnabled(true);
             guiFrame.getClearGridButton().setEnabled(true);
+            guiFrame.getSpeedSlider().setEnabled(true);
             isRunning = false;
         }
     }

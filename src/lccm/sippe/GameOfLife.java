@@ -17,8 +17,8 @@ public class GameOfLife {
 	public static void main(String[] arg) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                GUIFrame guiFrame = new GUIFrame(50, 50);
-                Automata automata = new Automata(50, 50);
+                GUIFrame guiFrame = new GUIFrame(80, 80);
+                Automata automata = new Automata(80, 80);
                 MainController mainController = new MainController(guiFrame, automata);
             }
         });
