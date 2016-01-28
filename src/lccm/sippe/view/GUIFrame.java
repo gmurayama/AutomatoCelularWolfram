@@ -18,7 +18,7 @@ public class GUIFrame extends JFrame{
     private JButton startStopButton;
     private JButton clearGridButton;
     private JButton randomizeGridButton;
-    private JMenuItem newSimulationMenu;
+    private JMenuItem preferencesMenu;
     private JLabel aliveCellsLabel;
     private JSlider speedSlider;
     private JLabel generationLabel;
@@ -53,9 +53,9 @@ public class GUIFrame extends JFrame{
         jMenu = new JMenu("File");
         jMenu.setMnemonic(KeyEvent.VK_F);
         jMenuBar.add(jMenu);
-        setNewSimulationMenu(new JMenuItem("Preferences"));
-        getNewSimulationMenu().setMnemonic(KeyEvent.VK_P);
-        jMenu.add(getNewSimulationMenu());
+        setPreferencesMenu(new JMenuItem("Preferences"));
+        getPreferencesMenu().setMnemonic(KeyEvent.VK_P);
+        jMenu.add(getPreferencesMenu());
         jMenu = new JMenu("Help");
         jMenu.setMnemonic(KeyEvent.VK_H);
         jMenuBar.add(jMenu);
@@ -98,12 +98,12 @@ public class GUIFrame extends JFrame{
 
 
 
-    public JMenuItem getNewSimulationMenu() {
-        return newSimulationMenu;
+    public JMenuItem getPreferencesMenu() {
+        return preferencesMenu;
     }
 
-    public void setNewSimulationMenu(JMenuItem newSimulationMenu) {
-        this.newSimulationMenu = newSimulationMenu;
+    public void setPreferencesMenu(JMenuItem preferencesMenu) {
+        this.preferencesMenu = preferencesMenu;
     }
 
     public JMenuItem getAboutMenu() {

@@ -1,5 +1,7 @@
 package lccm.sippe.view;
 
+import lccm.sippe.model.GamePreferences;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -20,24 +22,28 @@ public class CellPanel extends JPanel{
         initialize();
     }
 
-    public void initialize(){
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    private void initialize(){
+        if (GamePreferences.isBorderedGrid())
+            this.setBorder(BorderFactory.createLineBorder(GamePreferences.getBorderColor()));
     }
 
     public void setAlive(){
-        this.setBackground(Color.GREEN);
+        this.setBackground(GamePreferences.getAliveCellColor());
         this.isAlive = true;
     }
 
     public void setDead(){
-        this.setBackground(Color.DARK_GRAY);
+        this.setBackground(GamePreferences.getDeadCellColor());
         this.isAlive = false;
+    }
+
+    public void setHooverColor(){
+        this.setBackground(GamePreferences.getCellHooverColor());
     }
 
     public boolean isAlive(){
         return isAlive;
     };
-
 
 
 }

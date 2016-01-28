@@ -2,7 +2,10 @@ package lccm.sippe.controller;
 
 import lccm.sippe.model.Automata;
 
+import lccm.sippe.model.GamePreferences;
 import lccm.sippe.view.GUIFrame;
+import lccm.sippe.view.PreferencesDialog;
+
 import java.awt.event.*;
 
 /**
@@ -16,15 +19,22 @@ public class MainController {
 
     private GUIFrame guiFrame;
     private CellPanelGridController cellGridPanelController;
+    private PreferencesDialog preferencesDialog;
     private Automata automata;
     private boolean isRunning;
     private int speed;
 
-    public MainController(GUIFrame guiFrame, Automata automata){
-        this.guiFrame = guiFrame;
-        this.automata = automata;
-        this.cellGridPanelController = guiFrame.getCellGridPanelController();
+    public MainController(){
+        createGame();
         initialize();
+    }
+
+    private void createGame(){
+        int gameSize = GamePreferences.getCellGridSize();
+        this.guiFrame = new GUIFrame(gameSize, gameSize);
+        this.automata = new Automata(gameSize, gameSize);
+        this.cellGridPanelController = guiFrame.getCellGridPanelController();
+        this.preferencesDialog  = new PreferencesDialog(guiFrame);
     }
 
     /* MainController initialization tasks:
@@ -35,12 +45,12 @@ public class MainController {
     *  - starts the Evolution thread
     */
     private void initialize(){
-        addGUIEventListeners();
         automata.init();
         isRunning = false;
         speed = guiFrame.getSpeedSlider().getValue();
         cellGridPanelController.setAutomataCopy(automata.getGrid());
         cellGridPanelController.fillCellPanelGrid();
+        addGUIEventListeners();
         Thread evolutionThread = new Thread(new EvolutionThread());
         evolutionThread.start();
     }
@@ -93,6 +103,38 @@ public class MainController {
                 clearGrid();
             }
         });
+        guiFrame.getPreferencesMenu().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                openPreferencesDialog();
+            }
+        });
+        preferencesDialog.getCancelButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {closePreferencesDialog();
+            }
+        });
+        preferencesDialog.getOkButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                savePreferences();
+            }
+        });
+    }
+
+    private void openPreferencesDialog(){
+        preferencesDialog.setVisible(true);
+    }
+
+    private void closePreferencesDialog() {
+        preferencesDialog.dispose();
+    }
+
+    /*
+    * @TODO
+    */
+    private void savePreferences(){
+
     }
 
     /* Changes the state of the isRunning flag,
@@ -125,7 +167,7 @@ public class MainController {
     }
 
     /* Reinitializes the Automata model with dead(0) values,
-     * calls the emptyGrid method to set all CellPanels to dead state
+     * calls the emptyGrid method to set all UI CellPanels to a dead state
      */
     private void clearGrid(){
         automata.init();

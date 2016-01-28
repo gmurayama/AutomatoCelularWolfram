@@ -1,5 +1,6 @@
 package lccm.sippe.controller;
 
+import lccm.sippe.model.GamePreferences;
 import lccm.sippe.view.CellPanel;
 
 import javax.swing.*;
@@ -67,14 +68,32 @@ public class CellPanelGridController extends JPanel{
             public void mouseReleased(MouseEvent mouseEvent) {}
 
             @Override
-            public void mouseEntered(MouseEvent mouseEvent) {}
+            public void mouseEntered(MouseEvent mouseEvent) {
+                testMethod(row, col);
+            }
 
             @Override
-            public void mouseExited(MouseEvent mouseEvent) {}
+            public void mouseExited(MouseEvent mouseEvent) {
+                testMethod2(row, col);
+            }
         });
         return cellPanel;
     }
 
+    /*@TODO*/
+    private void testMethod(int row, int col) {
+        CellPanel cellPanel = getCellPanelAtPosition(row, col);
+        cellPanel.setHooverColor();
+    }
+
+    /*@TODO*/
+    private void testMethod2(int row, int col){
+        CellPanel cellPanel = getCellPanelAtPosition(row, col);
+        if (cellPanel.isAlive())
+            cellPanel.setBackground(GamePreferences.getAliveCellColor());
+        else
+            cellPanel.setBackground(GamePreferences.getDeadCellColor());
+    }
 
     /* Modifies the value of the CellPanel at a given position
     *
