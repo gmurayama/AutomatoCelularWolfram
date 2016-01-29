@@ -6,6 +6,7 @@ import lccm.sippe.model.GamePreferences;
 import lccm.sippe.view.GUIFrame;
 import lccm.sippe.view.PreferencesDialog;
 
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -48,8 +49,7 @@ public class MainController {
         automata.init();
         isRunning = false;
         speed = guiFrame.getSpeedSlider().getValue();
-        cellGridPanelController.setAutomataCopy(automata.getGrid());
-        cellGridPanelController.fillCellPanelGrid();
+        //cellGridPanelController.setAutomataCopy(automata.getGrid());
         addGUIEventListeners();
         Thread evolutionThread = new Thread(new EvolutionThread());
         evolutionThread.start();
@@ -118,6 +118,11 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 savePreferences();
+                guiFrame.dispose();
+                automata = new Automata(10, 10);
+                guiFrame = new GUIFrame(10,  10);
+                cellGridPanelController = guiFrame.getCellGridPanelController();
+                addGUIEventListeners();
             }
         });
     }
@@ -134,7 +139,10 @@ public class MainController {
     * @TODO
     */
     private void savePreferences(){
-
+        GamePreferences.setAliveCellColor(preferencesDialog.getAliveCellColor());
+        GamePreferences.setDeadCellColor(preferencesDialog.getDeadCellColor());
+        GamePreferences.setBorderedGrid(preferencesDialog.displaysBorders());
+        preferencesDialog.dispose();
     }
 
     /* Changes the state of the isRunning flag,

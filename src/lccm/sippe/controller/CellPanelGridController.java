@@ -23,7 +23,9 @@ public class CellPanelGridController extends JPanel{
     public CellPanelGridController(int xCellCount, int yCellCount){
         this.xCellCount = xCellCount;
         this.yCellCount = yCellCount;
+        automataCopy = new int[xCellCount][yCellCount];
         initialize();
+        fillCellPanelGrid();
     }
 
     public void initialize(){
@@ -69,25 +71,24 @@ public class CellPanelGridController extends JPanel{
 
             @Override
             public void mouseEntered(MouseEvent mouseEvent) {
-                testMethod(row, col);
+                paintMouseEnteredCell(row, col);
             }
 
             @Override
             public void mouseExited(MouseEvent mouseEvent) {
-                testMethod2(row, col);
+                paintMouseExitedCell(row, col);
             }
         });
         return cellPanel;
     }
 
-    /*@TODO*/
-    private void testMethod(int row, int col) {
+
+    private void paintMouseEnteredCell(int row, int col) {
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
         cellPanel.setHooverColor();
     }
 
-    /*@TODO*/
-    private void testMethod2(int row, int col){
+    private void paintMouseExitedCell(int row, int col){
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
         if (cellPanel.isAlive())
             cellPanel.setBackground(GamePreferences.getAliveCellColor());
