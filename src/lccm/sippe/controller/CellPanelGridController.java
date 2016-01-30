@@ -4,9 +4,11 @@ import lccm.sippe.model.GamePreferences;
 import lccm.sippe.view.CellPanel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 /**
  * @author: Luis Carlos Castillo Martinez on 18/01/16.
@@ -85,7 +87,7 @@ public class CellPanelGridController extends JPanel{
 
     private void paintMouseEnteredCell(int row, int col) {
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
-        cellPanel.setHooverColor();
+        cellPanel.setBackground(GamePreferences.getCellPointerColor());
     }
 
     private void paintMouseExitedCell(int row, int col){

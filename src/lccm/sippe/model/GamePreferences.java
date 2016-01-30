@@ -14,8 +14,8 @@ public final class GamePreferences{
     private static Color DEAD_CELL_COLOR = Color.DARK_GRAY;
     private static Color ALIVE_CELL_COLOR = Color.GREEN;
     private static Color BORDER_COLOR = Color.BLACK;
-    private static Color CELL_HOOVER_COLOR = Color.YELLOW;
-    private static int CELL_GRID_SIZE = 80;
+    private static Color CELL_POINTER_COLOR = Color.YELLOW;
+    private static int CELL_GRID_SIZE = 50;
     private static boolean BORDERED_GRID = true;
 
     private GamePreferences(){
@@ -33,12 +33,12 @@ public final class GamePreferences{
         return ALIVE_CELL_COLOR;
     }
 
-    public static Color getCellHooverColor(){
-        return CELL_HOOVER_COLOR;
+    public static Color getCellPointerColor(){
+        return CELL_POINTER_COLOR;
     }
 
-    public static void setCellHooverColor(Color cellHooverColor){
-        CELL_HOOVER_COLOR = cellHooverColor;
+    public static void setCellPointerColor(Color cellHooverColor){
+        CELL_POINTER_COLOR = cellHooverColor;
     }
 
     public static void setBorderColor(Color borderColor) {

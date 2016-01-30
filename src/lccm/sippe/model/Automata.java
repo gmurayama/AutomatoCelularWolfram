@@ -93,27 +93,19 @@ public class Automata {
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
 				nbLivNgb=countLivingNeighbors(i,j);
+
                 if (grid[i][j] == 1) {
-                    if (nbLivNgb < 2)
+                    if (nbLivNgb < 2 || nbLivNgb > 3)
                         clone[i][j] = 0;
-                    if ((nbLivNgb == 2 || nbLivNgb == 3))
-                        clone[i][j] = 1;
-					if (nbLivNgb > 3)
-                        clone[i][j]= 0;
+					else
+						clone[i][j] = 1;
                 }
                 else {
                     if (nbLivNgb == 3)
                         clone[i][j] = 1;
+					else
+						clone[i][j] = 0;
                 }
-                /*
-                if (grid[i][j]==1) {
-					if ((nbLivNgb<2)||(nbLivNgb>3)) clone[i][j]=0;
-					else clone[i][j]=1;
-				}
-				else {
-					if (nbLivNgb>=3) clone[i][j]=1;
-					else clone[i][j]=0;
-				}*/
 			}
 		}
 

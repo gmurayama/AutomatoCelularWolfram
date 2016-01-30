@@ -1,13 +1,13 @@
 package lccm.sippe.controller;
 
 import lccm.sippe.model.Automata;
-
 import lccm.sippe.model.GamePreferences;
 import lccm.sippe.view.GUIFrame;
 import lccm.sippe.view.PreferencesDialog;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 /**
  * @author: Luis Carlos Castillo Martinez on 18/01/16.
@@ -72,6 +72,16 @@ public class MainController {
                 if (isRunning){
                     automata.evolve();
                     cellGridPanelController.setAutomataCopy(automata.getGrid());
+
+                    /* for the lulz
+                    Random rand = new Random();
+                    float r = rand.nextFloat();
+                    float g = rand.nextFloat();
+                    float b = rand.nextFloat();
+                    Color randomColor = new Color(r, g, b);
+                    GamePreferences.setAliveCellColor(randomColor);
+                    */
+
                     cellGridPanelController.fillCellPanelGrid();
                     //guiFrame.getAliveCellsLabel().setText("Alive Cells: "+ cellGridPanelController.getAliveCells());
                     try{
@@ -80,8 +90,17 @@ public class MainController {
                         ex.printStackTrace();
                     }
                 }
-                else
+                else {
+                    /*for the lulz
+                    Random rand = new Random();
+                    float r = rand.nextFloat();
+                    float g = rand.nextFloat();
+                    float b = rand.nextFloat();
+                    Color randomColor2 = new Color(r, g, b);
+                    GamePreferences.setDeadCellColor(randomColor2);
+                    */
                     automata.setGrid(cellGridPanelController.getAutomataCopy());
+                }
         }
     }
 
@@ -118,11 +137,19 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 savePreferences();
-                guiFrame.dispose();
-                automata = new Automata(10, 10);
-                guiFrame = new GUIFrame(10,  10);
+                //guiFrame.dispose();
+                int boardSize = GamePreferences.getCellGridSize();
+                automata = new Automata(boardSize, boardSize);
+                guiFrame.remove(cellGridPanelController);
+                cellGridPanelController = new CellPanelGridController(boardSize, boardSize);
+                guiFrame.add(cellGridPanelController, BorderLayout.CENTER);
+                //guiFrame.setCellGridPanelController(cellGridPanelController);
+                guiFrame.validate();
+                guiFrame.repaint();
+                //addGUIEventListeners();
+                /*guiFrame = new GUIFrame(boardSize,  boardSize);
                 cellGridPanelController = guiFrame.getCellGridPanelController();
-                addGUIEventListeners();
+                addGUIEventListeners();*/
             }
         });
     }
@@ -142,6 +169,9 @@ public class MainController {
         GamePreferences.setAliveCellColor(preferencesDialog.getAliveCellColor());
         GamePreferences.setDeadCellColor(preferencesDialog.getDeadCellColor());
         GamePreferences.setBorderedGrid(preferencesDialog.displaysBorders());
+        GamePreferences.setBorderColor(preferencesDialog.getBorderCellColor());
+        GamePreferences.setCellPointerColor(preferencesDialog.getCellPointerColor());
+        GamePreferences.setCellGridSize(preferencesDialog.getCellGridSize());
         preferencesDialog.dispose();
     }
 
@@ -154,6 +184,7 @@ public class MainController {
             guiFrame.getRandomizeGridButton().setEnabled(false);
             guiFrame.getClearGridButton().setEnabled(false);
             guiFrame.getSpeedSlider().setEnabled(false);
+            guiFrame.getPreferencesMenu().setEnabled(false);
             speed = guiFrame.getSpeedSlider().getValue();
             isRunning = true;
         }
@@ -162,6 +193,7 @@ public class MainController {
             guiFrame.getRandomizeGridButton().setEnabled(true);
             guiFrame.getClearGridButton().setEnabled(true);
             guiFrame.getSpeedSlider().setEnabled(true);
+            guiFrame.getPreferencesMenu().setEnabled(true);
             isRunning = false;
         }
     }
