@@ -17,6 +17,10 @@ public final class GamePreferences{
     private static Color CELL_POINTER_COLOR = Color.YELLOW;
     private static int CELL_GRID_SIZE = 50;
     private static boolean BORDERED_GRID = true;
+    private static String[] RULE_NAMES = {"Conway's Life", "2 x 2"};
+    //@TODO
+    private static int[][] BIRTH_PRESETS = {{2,3}};
+    private static int[][] SURVIVAL_PRESETS = {{2,3}};
 
     private GamePreferences(){
     }
@@ -68,6 +72,11 @@ public final class GamePreferences{
     public static void setBorderedGrid(boolean borderedGrid) {
         BORDERED_GRID = borderedGrid;
     }
+
+    public static String[] getRULES() {
+        return RULE_NAMES;
+    }
+
 
 
 }

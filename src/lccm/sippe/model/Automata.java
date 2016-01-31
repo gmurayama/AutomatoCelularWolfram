@@ -39,7 +39,6 @@ public class Automata {
 		this.grid = grid;
 	}
 
-
 	public int getState(int i, int j) {					// Getter for a cell's state
 		return grid[i][j];
 	}
@@ -95,13 +94,20 @@ public class Automata {
 				nbLivNgb=countLivingNeighbors(i,j);
 
                 if (grid[i][j] == 1) {
-                    if (nbLivNgb < 2 || nbLivNgb > 3)
+					if (nbLivNgb == 2 || nbLivNgb == 3)
+					//if (nbLivNgb >= 0 && nbLivNgb <= 8)
+                        clone[i][j] = 1;
+					else
+						clone[i][j] = 0;
+
+                  /*  if (nbLivNgb < 2 || nbLivNgb > 3)
                         clone[i][j] = 0;
 					else
-						clone[i][j] = 1;
+						clone[i][j] = 1;*/
                 }
                 else {
                     if (nbLivNgb == 3)
+                   // if (nbLivNgb == 3 || nbLivNgb == 5 || nbLivNgb == 6 || nbLivNgb == 7 || nbLivNgb == 8)
                         clone[i][j] = 1;
 					else
 						clone[i][j] = 0;

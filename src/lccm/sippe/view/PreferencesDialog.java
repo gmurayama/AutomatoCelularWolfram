@@ -3,7 +3,6 @@ package lccm.sippe.view;
 import lccm.sippe.model.GamePreferences;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -28,11 +27,17 @@ public class PreferencesDialog extends JDialog {
     private JButton pointerColorButton;
     private JCheckBox displayBordersCheckBox;
     private JSpinner boardSizeSpinner;
+    //@TODO
+    private JTextField birthRulesTextField;
+    private JTextField survivalRulesTextField;
+
     private static int WIDTH = 400;
     private static int HEIGHT = 350;
+    private static Color randomColor = new Color(233, 233, 233);
     private static List<Color> colors = new ArrayList<>
-            (Arrays.asList(new Color(233, 233, 233), Color.BLACK, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY,
+            (Arrays.asList(randomColor, Color.BLACK, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY,
                     Color.GREEN, Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.WHITE, Color.YELLOW));
+    private Random random;
 
     public PreferencesDialog(JFrame parentJFrame){
         this.setLocationRelativeTo(parentJFrame);
@@ -40,7 +45,6 @@ public class PreferencesDialog extends JDialog {
     }
 
     private void initialize(){
-
         okButton = new JButton("Ok");
         cancelButton = new JButton("Cancel");
         aliveCellGridColorButton = new JButton("");
@@ -49,11 +53,10 @@ public class PreferencesDialog extends JDialog {
         pointerColorButton = new JButton("");
         displayBordersCheckBox = new JCheckBox("");
         boardSizeSpinner = new JSpinner();
+        random = new Random();
         SpinnerModel spinnerModel = new SpinnerNumberModel(GamePreferences.getCellGridSize(), 10, 200, 5);
-
         Container dialogPane = getContentPane();
         dialogPane.setLayout(new BorderLayout());
-
 
         this.setTitle("Preferences");
         this.setSize(new Dimension(HEIGHT, WIDTH));
@@ -71,7 +74,7 @@ public class PreferencesDialog extends JDialog {
         getBorderColorButton().setFocusPainted(false);
         getBoardSizeSpinner().setModel(spinnerModel);
 
-        //borderlayout: center
+        //border layou: center
         JPanel verticalLayoutPanel;
         verticalLayoutPanel = new JPanel();
         verticalLayoutPanel.setLayout(new BoxLayout(verticalLayoutPanel, BoxLayout.Y_AXIS));
@@ -96,14 +99,19 @@ public class PreferencesDialog extends JDialog {
         verticalLayoutPanel.add(gridLayoutPanel);
 
         gridLayoutPanel = new JPanel();
-        gridLayoutPanel.setLayout(new GridLayout(1, 1, 5, 5));
+        gridLayoutPanel.setLayout(new GridLayout(4, 2, 5, 5));
         titledBorder = new TitledBorder(" Game ");
         titledBorder.setTitleJustification(TitledBorder.CENTER);
         gridLayoutPanel.setBorder(titledBorder);
         gridLayoutPanel.add(new JLabel("Grid size"));
         gridLayoutPanel.add(getBoardSizeSpinner());
+        gridLayoutPanel.add(new JLabel (" Rule preset"));
+        gridLayoutPanel.add(new JComboBox<>(GamePreferences.getRULES()));
+        gridLayoutPanel.add(new JLabel (" Birth"));
+        gridLayoutPanel.add(new JTextField());
+        gridLayoutPanel.add(new JLabel (" Survival"));
+        gridLayoutPanel.add(new JTextField());
         verticalLayoutPanel.add(gridLayoutPanel);
-
 
         dialogPane.add(verticalLayoutPanel,BorderLayout.CENTER);
 
@@ -145,6 +153,12 @@ public class PreferencesDialog extends JDialog {
         });
     }
 
+    private Color createRandomColor(){
+        float r = random.nextFloat();
+        float g = random.nextFloat();
+        float b = random.nextFloat();
+        return new Color(r, g, b);
+    }
 
     private void changeButtonBackgroundColor(JButton jButton){
         Color currentColor = jButton.getBackground();
@@ -160,20 +174,31 @@ public class PreferencesDialog extends JDialog {
     }
 
     public Color getAliveCellColor(){
-        return aliveCellGridColorButton.getBackground();
+        if (aliveCellGridColorButton.getBackground() != randomColor)
+            return aliveCellGridColorButton.getBackground();
+        else
+            return createRandomColor();
     }
 
     public Color getDeadCellColor(){
-        return deadCellGridColorButton.getBackground();
+        if (deadCellGridColorButton.getBackground() != randomColor)
+            return deadCellGridColorButton.getBackground();
+        else
+            return createRandomColor();
     }
 
-
     public Color getBorderCellColor(){
-        return borderColorButton.getBackground();
+        if (borderColorButton.getBackground() != randomColor)
+            return borderColorButton.getBackground();
+        else
+            return createRandomColor();
     }
 
     public Color getCellPointerColor(){
-        return pointerColorButton.getBackground();
+        if (pointerColorButton.getBackground() != randomColor)
+            return pointerColorButton.getBackground();
+        else
+            return createRandomColor();
     }
 
     public int getCellGridSize() { return (int)boardSizeSpinner.getValue();}

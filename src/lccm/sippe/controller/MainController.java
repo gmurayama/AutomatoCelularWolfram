@@ -7,7 +7,6 @@ import lccm.sippe.view.PreferencesDialog;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 
 /**
  * @author: Luis Carlos Castillo Martinez on 18/01/16.
@@ -72,16 +71,6 @@ public class MainController {
                 if (isRunning){
                     automata.evolve();
                     cellGridPanelController.setAutomataCopy(automata.getGrid());
-
-                    /* for the lulz
-                    Random rand = new Random();
-                    float r = rand.nextFloat();
-                    float g = rand.nextFloat();
-                    float b = rand.nextFloat();
-                    Color randomColor = new Color(r, g, b);
-                    GamePreferences.setAliveCellColor(randomColor);
-                    */
-
                     cellGridPanelController.fillCellPanelGrid();
                     //guiFrame.getAliveCellsLabel().setText("Alive Cells: "+ cellGridPanelController.getAliveCells());
                     try{
@@ -91,14 +80,6 @@ public class MainController {
                     }
                 }
                 else {
-                    /*for the lulz
-                    Random rand = new Random();
-                    float r = rand.nextFloat();
-                    float g = rand.nextFloat();
-                    float b = rand.nextFloat();
-                    Color randomColor2 = new Color(r, g, b);
-                    GamePreferences.setDeadCellColor(randomColor2);
-                    */
                     automata.setGrid(cellGridPanelController.getAutomataCopy());
                 }
         }
@@ -137,21 +118,23 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 savePreferences();
-                //guiFrame.dispose();
-                int boardSize = GamePreferences.getCellGridSize();
-                automata = new Automata(boardSize, boardSize);
-                guiFrame.remove(cellGridPanelController);
-                cellGridPanelController = new CellPanelGridController(boardSize, boardSize);
-                guiFrame.add(cellGridPanelController, BorderLayout.CENTER);
-                //guiFrame.setCellGridPanelController(cellGridPanelController);
-                guiFrame.validate();
-                guiFrame.repaint();
-                //addGUIEventListeners();
-                /*guiFrame = new GUIFrame(boardSize,  boardSize);
-                cellGridPanelController = guiFrame.getCellGridPanelController();
-                addGUIEventListeners();*/
+                createNewGame();
             }
         });
+    }
+
+    /*
+     * Creates a new automata object with a new size, as well as
+     * a  cellGridPanelController object with new UI properties
+     */
+    private void createNewGame(){
+        int boardSize = GamePreferences.getCellGridSize();
+        automata = new Automata(boardSize, boardSize);
+        guiFrame.remove(cellGridPanelController);
+        cellGridPanelController = new CellPanelGridController(boardSize, boardSize);
+        guiFrame.add(cellGridPanelController, BorderLayout.CENTER);
+        guiFrame.validate();
+        guiFrame.repaint();
     }
 
     private void openPreferencesDialog(){
@@ -163,7 +146,8 @@ public class MainController {
     }
 
     /*
-    * @TODO
+    * Modifies the properties of the Preferences static class with
+    * new user entered values
     */
     private void savePreferences(){
         GamePreferences.setAliveCellColor(preferencesDialog.getAliveCellColor());
