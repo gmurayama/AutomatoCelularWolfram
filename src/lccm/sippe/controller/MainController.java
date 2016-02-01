@@ -32,7 +32,7 @@ public class MainController {
     private void createGame(){
         int gameSize = GamePreferences.getCellGridSize();
         this.guiFrame = new GUIFrame(gameSize, gameSize);
-        this.automata = new Automata(gameSize, gameSize);
+        this.automata = new Automata(gameSize, gameSize, GamePreferences.getSurvivalPreset(), GamePreferences.getBirthPreset());
         this.cellGridPanelController = guiFrame.getCellGridPanelController();
         this.preferencesDialog  = new PreferencesDialog(guiFrame);
     }
@@ -129,7 +129,7 @@ public class MainController {
      */
     private void createNewGame(){
         int boardSize = GamePreferences.getCellGridSize();
-        automata = new Automata(boardSize, boardSize);
+        automata = new Automata(boardSize, boardSize, GamePreferences.getSurvivalPreset(), GamePreferences.getBirthPreset());
         guiFrame.remove(cellGridPanelController);
         cellGridPanelController = new CellPanelGridController(boardSize, boardSize);
         guiFrame.add(cellGridPanelController, BorderLayout.CENTER);
@@ -156,6 +156,8 @@ public class MainController {
         GamePreferences.setBorderColor(preferencesDialog.getBorderCellColor());
         GamePreferences.setCellPointerColor(preferencesDialog.getCellPointerColor());
         GamePreferences.setCellGridSize(preferencesDialog.getCellGridSize());
+        GamePreferences.setSurvivalPreset(preferencesDialog.getSurvivalRulePreset());
+        GamePreferences.setBirthPreset(preferencesDialog.getBirthRulePreset());
         preferencesDialog.dispose();
     }
 

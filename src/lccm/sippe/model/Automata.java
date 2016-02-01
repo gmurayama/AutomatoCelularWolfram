@@ -7,10 +7,14 @@ public class Automata {
 	protected int grid[][], clone[][];					// Cells grid and its copy
 	static int DIM = 10;								// Default dimension for the grid
 	private static Random random = new Random();
+	private Integer[] survivalRules;
+	private Integer[] birthRules;
 
-	public Automata(int lineNb, int columnNb) {			//	Automata constructor
+	public Automata(int lineNb, int columnNb, Integer[] survivalRules, Integer[] birthRules) {
 		grid= new int[lineNb][columnNb];
 		clone = new int[lineNb][columnNb];
+		this.survivalRules = survivalRules;
+		this.birthRules = birthRules;
 	}
 
 	public Automata() {									// Automata default constructor
@@ -81,6 +85,14 @@ public class Automata {
 		return s;
 	}
 
+
+	public static <T> boolean contains(final T[] array, final T v) {
+		for (final T e : array)
+			if (e == v || v != null && v.equals(e))
+				return true;
+		return false;
+	}
+
 /*
     Any live cell with fewer than two live neighbours dies, as if caused by under-population.
     Any live cell with two or three live neighbours lives on to the next generation.
@@ -94,7 +106,7 @@ public class Automata {
 				nbLivNgb=countLivingNeighbors(i,j);
 
                 if (grid[i][j] == 1) {
-					if (nbLivNgb == 2 || nbLivNgb == 3)
+					if (contains(survivalRules, nbLivNgb) )
 					//if (nbLivNgb >= 0 && nbLivNgb <= 8)
                         clone[i][j] = 1;
 					else
@@ -106,7 +118,7 @@ public class Automata {
 						clone[i][j] = 1;*/
                 }
                 else {
-                    if (nbLivNgb == 3)
+                    if (contains(birthRules, nbLivNgb) )
                    // if (nbLivNgb == 3 || nbLivNgb == 5 || nbLivNgb == 6 || nbLivNgb == 7 || nbLivNgb == 8)
                         clone[i][j] = 1;
 					else

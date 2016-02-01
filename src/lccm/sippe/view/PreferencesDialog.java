@@ -27,7 +27,7 @@ public class PreferencesDialog extends JDialog {
     private JButton pointerColorButton;
     private JCheckBox displayBordersCheckBox;
     private JSpinner boardSizeSpinner;
-    //@TODO
+    private JComboBox rulePresetComboBox;
     private JTextField birthRulesTextField;
     private JTextField survivalRulesTextField;
 
@@ -53,6 +53,9 @@ public class PreferencesDialog extends JDialog {
         pointerColorButton = new JButton("");
         displayBordersCheckBox = new JCheckBox("");
         boardSizeSpinner = new JSpinner();
+        birthRulesTextField = new JTextField();
+        survivalRulesTextField = new JTextField();
+        rulePresetComboBox = new JComboBox(GamePreferences.getRULES());
         random = new Random();
         SpinnerModel spinnerModel = new SpinnerNumberModel(GamePreferences.getCellGridSize(), 10, 200, 5);
         Container dialogPane = getContentPane();
@@ -73,8 +76,10 @@ public class PreferencesDialog extends JDialog {
         getBorderColorButton().setBackground(GamePreferences.getBorderColor());
         getBorderColorButton().setFocusPainted(false);
         getBoardSizeSpinner().setModel(spinnerModel);
+        getSurvivalRulesTextField().setText(Arrays.toString(GamePreferences.getSurvivalPreset()));
+        getBirthRulesTextField().setText(Arrays.toString(GamePreferences.getBirthPreset()));
 
-        //border layou: center
+        //border layout: center
         JPanel verticalLayoutPanel;
         verticalLayoutPanel = new JPanel();
         verticalLayoutPanel.setLayout(new BoxLayout(verticalLayoutPanel, BoxLayout.Y_AXIS));
@@ -103,16 +108,15 @@ public class PreferencesDialog extends JDialog {
         titledBorder = new TitledBorder(" Game ");
         titledBorder.setTitleJustification(TitledBorder.CENTER);
         gridLayoutPanel.setBorder(titledBorder);
-        gridLayoutPanel.add(new JLabel("Grid size"));
+        gridLayoutPanel.add(new JLabel(" Grid size"));
         gridLayoutPanel.add(getBoardSizeSpinner());
         gridLayoutPanel.add(new JLabel (" Rule preset"));
-        gridLayoutPanel.add(new JComboBox<>(GamePreferences.getRULES()));
-        gridLayoutPanel.add(new JLabel (" Birth"));
-        gridLayoutPanel.add(new JTextField());
+        gridLayoutPanel.add(getRulePresetComboBox());
         gridLayoutPanel.add(new JLabel (" Survival"));
-        gridLayoutPanel.add(new JTextField());
+        gridLayoutPanel.add(getSurvivalRulesTextField());
+        gridLayoutPanel.add(new JLabel (" Birth"));
+        gridLayoutPanel.add(getBirthRulesTextField());
         verticalLayoutPanel.add(gridLayoutPanel);
-
         dialogPane.add(verticalLayoutPanel,BorderLayout.CENTER);
 
         //borderlayout: south
@@ -151,6 +155,13 @@ public class PreferencesDialog extends JDialog {
                 changeButtonBackgroundColor(getBorderColorButton());
             }
         });
+
+        getRulePresetComboBox().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                changeRulePreset(getRulePresetComboBox());
+            }
+        });
     }
 
     private Color createRandomColor(){
@@ -171,6 +182,37 @@ public class PreferencesDialog extends JDialog {
             jButton.setText("");
             jButton.setBackground(colors.get(index + 1));
         }
+    }
+
+    private void changeRulePreset(JComboBox rulePresetComboBox){
+        int index = rulePresetComboBox.getSelectedIndex();
+        getSurvivalRulesTextField().setText(Arrays.toString(GamePreferences.getSurvivalPresetAt(index)));
+        getBirthRulesTextField().setText(Arrays.toString(GamePreferences.getBirthPresetAt(index)));
+    }
+
+    //@TODO
+    public Integer[] stringToIntegerArray(String array){
+        return null;
+    }
+
+    public Integer[] getSurvivalRulePreset(){
+        return stringToIntegerArray(getSurvivalRulesTextField().getText());
+    }
+
+    public Integer[] getBirthRulePreset(){
+        return stringToIntegerArray(getSurvivalRulesTextField().getText());
+    }
+
+    public JComboBox getRulePresetComboBox() {
+        return rulePresetComboBox;
+    }
+
+    public JTextField getBirthRulesTextField() {
+        return birthRulesTextField;
+    }
+
+    public JTextField getSurvivalRulesTextField() {
+        return survivalRulesTextField;
     }
 
     public Color getAliveCellColor(){
