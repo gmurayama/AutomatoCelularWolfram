@@ -3,8 +3,8 @@ package lccm.sippe.controller;
 import lccm.sippe.model.Automata;
 import lccm.sippe.model.GamePreferences;
 import lccm.sippe.view.GUIFrame;
-import lccm.sippe.view.PreferencesDialog;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -32,12 +32,13 @@ public class MainController {
     private void createGame(){
         int gameSize = GamePreferences.getCellGridSize();
         this.guiFrame = new GUIFrame(gameSize, gameSize);
-        this.automata = new Automata(gameSize, gameSize, GamePreferences.getSurvivalPreset(), GamePreferences.getBirthPreset());
+        this.automata = new Automata(gameSize, gameSize,
+                GamePreferences.getSurvivalPreset(), GamePreferences.getBirthPreset());
         this.cellGridPanelController = guiFrame.getCellGridPanelController();
-        this.preferencesDialog  = new PreferencesDialog(guiFrame);
+        this.preferencesDialog  = new PreferencesDialog();
     }
 
-    /* MainController initialization tasks:
+    /** MainController initialization tasks:
     *  - intializes the Automata object with empty values
     *  - intializes the isRunning flag to false
     *  - sets the Automata array as a copy to the CellPanelController
@@ -48,7 +49,6 @@ public class MainController {
         automata.init();
         isRunning = false;
         speed = guiFrame.getSpeedSlider().getValue();
-        //cellGridPanelController.setAutomataCopy(automata.getGrid());
         addGUIEventListeners();
         Thread evolutionThread = new Thread(new EvolutionThread());
         evolutionThread.start();
@@ -56,7 +56,7 @@ public class MainController {
 
     private class EvolutionThread implements Runnable{
 
-        /* When the isRunning flag is true:
+        /** When the isRunning flag is true:
          * - modifies the Automata array by its evolution rules
          * - updates the Automata array copy of the CellGridPanel controller to the Automata array
          * - updates the UI CellPanelGrid with its own copy of the Automata array
@@ -72,7 +72,6 @@ public class MainController {
                     automata.evolve();
                     cellGridPanelController.setAutomataCopy(automata.getGrid());
                     cellGridPanelController.fillCellPanelGrid();
-                    //guiFrame.getAliveCellsLabel().setText("Alive Cells: "+ cellGridPanelController.getAliveCells());
                     try{
                         Thread.sleep(speed);
                     } catch (InterruptedException ex) {
@@ -118,12 +117,11 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 savePreferences();
-                createNewGame();
             }
         });
     }
 
-    /*
+    /**
      * Creates a new automata object with a new size, as well as
      * a  cellGridPanelController object with new UI properties
      */
@@ -145,7 +143,7 @@ public class MainController {
         preferencesDialog.dispose();
     }
 
-    /*
+    /**
     * Modifies the properties of the Preferences static class with
     * new user entered values
     */
@@ -156,12 +154,29 @@ public class MainController {
         GamePreferences.setBorderColor(preferencesDialog.getBorderCellColor());
         GamePreferences.setCellPointerColor(preferencesDialog.getCellPointerColor());
         GamePreferences.setCellGridSize(preferencesDialog.getCellGridSize());
-        GamePreferences.setSurvivalPreset(preferencesDialog.getSurvivalRulePreset());
-        GamePreferences.setBirthPreset(preferencesDialog.getBirthRulePreset());
-        preferencesDialog.dispose();
+
+        String survivalRulesInput = preferencesDialog.getSurvivalRulesTextField().getText();
+        String birthRulesInput = preferencesDialog.getBirthRulesTextField().getText();
+
+        if (isValidInput(survivalRulesInput) && isValidInput(birthRulesInput)) {
+            GamePreferences.setSurvivalPreset(preferencesDialog.getSurvivalRulePreset());
+            GamePreferences.setBirthPreset(preferencesDialog.getBirthRulePreset());
+            preferencesDialog.dispose();
+            createNewGame();
+        }
+        else
+            JOptionPane.showMessageDialog(preferencesDialog, "Please use the following format: n1,n2,n3",
+                    "Rule formatting",JOptionPane.WARNING_MESSAGE);
     }
 
-    /* Changes the state of the isRunning flag,
+    private boolean isValidInput(String input){
+        if (input.matches("[0-8]+(\\,[$0-8])*"))
+            return true;
+        else return false;
+    }
+
+
+    /** Changes the state of the isRunning flag,
     *  modifies the setEnabled property of the JButton elements
     */
     private void startStopEvolution(){
@@ -184,7 +199,7 @@ public class MainController {
         }
     }
 
-    /* Initializes the Automata model with random values,
+    /** Initializes the Automata model with random values,
      * fills the values of the
      */
     private void randomizeGrid(){
@@ -192,7 +207,7 @@ public class MainController {
         cellGridPanelController.fillCellPanelGrid();
     }
 
-    /* Reinitializes the Automata model with dead(0) values,
+    /** Reinitializes the Automata model with dead(0) values,
      * calls the emptyGrid method to set all UI CellPanels to a dead state
      */
     private void clearGrid(){

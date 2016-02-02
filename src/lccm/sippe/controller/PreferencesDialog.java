@@ -1,13 +1,15 @@
-package lccm.sippe.view;
+package lccm.sippe.controller;
 
 import lccm.sippe.model.GamePreferences;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.*;
 import java.util.List;
 
@@ -31,16 +33,16 @@ public class PreferencesDialog extends JDialog {
     private JTextField birthRulesTextField;
     private JTextField survivalRulesTextField;
 
-    private static int WIDTH = 400;
-    private static int HEIGHT = 350;
+    private static int HEIGHT = 370;
+    private static int WIDTH = 300;
     private static Color randomColor = new Color(233, 233, 233);
     private static List<Color> colors = new ArrayList<>
             (Arrays.asList(randomColor, Color.BLACK, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY,
                     Color.GREEN, Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.WHITE, Color.YELLOW));
     private Random random;
 
-    public PreferencesDialog(JFrame parentJFrame){
-        this.setLocationRelativeTo(parentJFrame);
+    public PreferencesDialog(){
+        this.setLocationByPlatform(true);
         initialize();
     }
 
@@ -57,12 +59,12 @@ public class PreferencesDialog extends JDialog {
         survivalRulesTextField = new JTextField();
         rulePresetComboBox = new JComboBox(GamePreferences.getRULES());
         random = new Random();
-        SpinnerModel spinnerModel = new SpinnerNumberModel(GamePreferences.getCellGridSize(), 10, 200, 5);
+        SpinnerModel spinnerModel = new SpinnerNumberModel(GamePreferences.getCellGridSize(), 10, 500, 5);
         Container dialogPane = getContentPane();
         dialogPane.setLayout(new BorderLayout());
 
         this.setTitle("Preferences");
-        this.setSize(new Dimension(HEIGHT, WIDTH));
+        this.setSize(new Dimension(WIDTH, HEIGHT));
         this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
         getAliveCellGridColorButton().setBackground(GamePreferences.getAliveCellColor());
@@ -76,8 +78,8 @@ public class PreferencesDialog extends JDialog {
         getBorderColorButton().setBackground(GamePreferences.getBorderColor());
         getBorderColorButton().setFocusPainted(false);
         getBoardSizeSpinner().setModel(spinnerModel);
-        getSurvivalRulesTextField().setText(Arrays.toString(GamePreferences.getSurvivalPreset()));
-        getBirthRulesTextField().setText(Arrays.toString(GamePreferences.getBirthPreset()));
+        getSurvivalRulesTextField().setText(alterString(Arrays.toString(GamePreferences.getSurvivalPreset())));
+        getBirthRulesTextField().setText(alterString(Arrays.toString(GamePreferences.getBirthPreset())));
 
         //border layout: center
         JPanel verticalLayoutPanel;
@@ -171,12 +173,16 @@ public class PreferencesDialog extends JDialog {
         return new Color(r, g, b);
     }
 
+    /** Changes the background color of the element
+     * from the static list of colors in game preferences
+    * @params jButton JButton the button to be modified
+     */
     private void changeButtonBackgroundColor(JButton jButton){
         Color currentColor = jButton.getBackground();
         int index = colors.indexOf(currentColor);
         if (index == colors.size() - 1) {
             jButton.setBackground(colors.get(0));
-            jButton.setText("RANDOM");
+            jButton.setText("random");
         }
         else {
             jButton.setText("");
@@ -184,22 +190,54 @@ public class PreferencesDialog extends JDialog {
         }
     }
 
+    /** Removes the [ ] characters from the array to string transformation
+     * as well as empty spaces
+     * @param string string to be modified
+     * @return string string after being modified
+     */
+    private String alterString(String string){
+        string = string.substring(1 , string.length() - 1);
+        string = string.replaceAll("\\s+","");
+        return string;
+    }
+
+    /** Changes the values of the survival and birth JTextFields depending on the
+     * JComboBox selection
+    * @param rulePresetComboBox JComboBox that holds the rule selection in the UI
+     **/
     private void changeRulePreset(JComboBox rulePresetComboBox){
         int index = rulePresetComboBox.getSelectedIndex();
-        getSurvivalRulesTextField().setText(Arrays.toString(GamePreferences.getSurvivalPresetAt(index)));
-        getBirthRulesTextField().setText(Arrays.toString(GamePreferences.getBirthPresetAt(index)));
+        String stringSurvivalRule = alterString(Arrays.toString(GamePreferences.getSurvivalPresetAt(index)));
+        getSurvivalRulesTextField().setText(stringSurvivalRule);
+        String stringBirthRule = alterString(Arrays.toString(GamePreferences.getBirthPresetAt(index)));
+        getBirthRulesTextField().setText(stringBirthRule);
     }
 
-    //@TODO
-    public Integer[] stringToIntegerArray(String array){
-        return null;
-    }
-
-    public Integer[] getSurvivalRulePreset(){
-        return stringToIntegerArray(getSurvivalRulesTextField().getText());
+    /**
+    *  Transforms a string into an array of Integers by the split of a ","
+     * @param text String to be split
+     * @return rules Integer[] the created array with integer values
+     */
+    private Integer[] stringToIntegerArray(String text){
+        String [] textFieldString = text.split(",");
+        Integer[] rules = new Integer[textFieldString.length];
+        for(int i=0; i<rules.length; i++)
+        {
+            try{
+                rules[i] = Integer.parseInt(textFieldString[i]);
+            }
+            catch(NumberFormatException nfe){
+                nfe.printStackTrace();
+            }
+        }
+        return rules;
     }
 
     public Integer[] getBirthRulePreset(){
+        return stringToIntegerArray(getBirthRulesTextField().getText());
+    }
+
+    public Integer[] getSurvivalRulePreset(){
         return stringToIntegerArray(getSurvivalRulesTextField().getText());
     }
 

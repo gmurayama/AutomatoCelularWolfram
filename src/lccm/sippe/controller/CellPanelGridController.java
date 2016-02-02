@@ -34,7 +34,7 @@ public class CellPanelGridController extends JPanel{
         addCellPanels();
     }
 
-    /* Creates CellPanel objects and adds them to the UI Panel
+    /** Creates CellPanel objects and adds them to the UI Panel
     *  at a 1D position
     */
     private void addCellPanels(){
@@ -47,11 +47,11 @@ public class CellPanelGridController extends JPanel{
         }
     }
 
-    /* Creates a CellPanel object at a 2D position,
+    /** Creates a CellPanel object at a 2D position,
     *  adds the MouseListener event handler for the MouseClicked event in each CellPanel
     *
-    *  @param int row the row number where the CellPanel will be located
-    *  @param int col the col number where the CellPanel will be located
+    *  @param row int the row number where the CellPanel will be located
+    *  @param col int the col number where the CellPanel will be located
     *  @return CellPanel the created CellPanel object
     */
     private CellPanel createCellPanel(final int row, final int col) {
@@ -96,10 +96,10 @@ public class CellPanelGridController extends JPanel{
             cellPanel.setBackground(GamePreferences.getDeadCellColor());
     }
 
-    /* Modifies the value of the CellPanel at a given position
+    /** Modifies the value of the CellPanel at a given position
     *
-    *  @param int row the row number where the cell is located
-    *  @param int col the col number where the cell is located
+    *  @param row int the row number where the cell is located
+    *  @param col int the col number where the cell is located
     */
     private void modifyCellPanelAtPosition(int row, int col){
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
@@ -109,10 +109,10 @@ public class CellPanelGridController extends JPanel{
             cellPanel.setAlive();
     }
 
-    /* Modifies the value of the Automata array copy at a given position
+    /** Modifies the value of the Automata array copy at a given position
      *
-     * @param int row the row number where the cell is located
-     * @param int col the col number where the cell is located
+     * @param row int the row number where the cell is located
+     * @param col int the col number where the cell is located
      */
     private void modifyAutomataAtPosition(int row, int col) {
         if (automataCopy[row][col] == 1)
@@ -121,7 +121,7 @@ public class CellPanelGridController extends JPanel{
             automataCopy[row][col] = 1;
     }
 
-    /* Iterates over the Automata array copy,
+    /** Iterates over the Automata array copy,
      * finds the row, col coordinates of a CellPanel
      * changes the state of the CellPanel
      */
@@ -138,10 +138,10 @@ public class CellPanelGridController extends JPanel{
         }
     }
 
-    /* Returns a CellPanel object at the specified 2D coordinates
+    /** Returns a CellPanel object at the specified 2D coordinates
      *
-     * @param int row the row number where the cell is located
-     * @param int col the col number where the cell is located
+     * @param row int the row number where the cell is located
+     * @param col int the col number where the cell is located
      * @return CellPanel the CellPanel found at the row, col position
      */
     public CellPanel getCellPanelAtPosition(int row, int col){

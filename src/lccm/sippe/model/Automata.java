@@ -1,38 +1,29 @@
 package lccm.sippe.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * @author: Mamadou Kaba Traoré
+ * traore@isima.fr
+ * modifications by Luis Carlos Castillo Martinez
+ * Université Blaise Pascal
+ * lcarlos.asimov@gmail.com
+ * github.com/luisccastillo
+ */
 public class Automata {
 
-	protected int grid[][], clone[][];					// Cells grid and its copy
-	static int DIM = 10;								// Default dimension for the grid
+	protected int grid[][], clone[][];
 	private static Random random = new Random();
-	private Integer[] survivalRules;
-	private Integer[] birthRules;
+	private ArrayList<Integer> survivalRules;
+	private ArrayList<Integer> birthRules;
 
 	public Automata(int lineNb, int columnNb, Integer[] survivalRules, Integer[] birthRules) {
 		grid= new int[lineNb][columnNb];
 		clone = new int[lineNb][columnNb];
-		this.survivalRules = survivalRules;
-		this.birthRules = birthRules;
-	}
-
-	public Automata() {									// Automata default constructor
-		grid= new int[DIM][DIM];
-		clone = new int[DIM][DIM];
-	}
-
-	public Automata(Automata aa) {						// Automata cloning constructor
-		if (this !=aa) {
-			grid = new int[aa.grid.length][aa.grid[0].length];
-			clone = new int[aa.grid.length][aa.grid[0].length];
-			for (int i = 0; i < aa.grid.length; i++) {
-				for (int j = 0; j < aa.grid[0].length; j++) {
-					grid[i][j] = aa.grid[i][j];
-					clone[i][j] = aa.clone[i][j];
-				}
-			}
- 		}
+		this.survivalRules = new ArrayList<>(Arrays.asList(survivalRules));
+		this.birthRules = new ArrayList<>(Arrays.asList((birthRules)));
 	}
 
 	public int[][] getGrid() {
@@ -43,19 +34,10 @@ public class Automata {
 		this.grid = grid;
 	}
 
-	public int getState(int i, int j) {					// Getter for a cell's state
-		return grid[i][j];
-	}
-
-	public static int getDefaultDimension() {			// Getter for the grid default dimension
-		return DIM;
-	}
-
-	public void setState(int i, int j, int k) {			// Setter for a cell's state
-		grid[i][j] = k;
-	}
-
-	public void init() {								// Cells grid random initialization
+	/**
+	* Initializes the grid array with empty values
+	 */
+	public void init() {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				grid[i][j] = 0;
@@ -64,6 +46,9 @@ public class Automata {
 		}
 	}
 
+	/**
+	 * Initializes the grid array with random values
+	 */
 	public void randomInit(){
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
@@ -72,7 +57,7 @@ public class Automata {
         }
 	}
 
-	private int countLivingNeighbors(int i, int j) {	// Counting of a cell's living neighbors
+	private int countLivingNeighbors(int i, int j) {
 		int s=0;
 		if (i>0) s=s+grid[i-1][j];
 		if ((i>0) && (j<grid[0].length-1)) s=s+grid[i-1][j+1];
@@ -85,41 +70,23 @@ public class Automata {
 		return s;
 	}
 
-
-	public static <T> boolean contains(final T[] array, final T v) {
-		for (final T e : array)
-			if (e == v || v != null && v.equals(e))
-				return true;
-		return false;
-	}
-
-/*
-    Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-    Any live cell with two or three live neighbours lives on to the next generation.
-    Any live cell with more than three live neighbours dies, as if by over-population.
-    Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-  */
-	public void evolve() {								// Evolution to the next generation
+	/**
+    * Evaluates the count of living neighbors in a cell to set its state to
+	 * survival, death, or birth
+    */
+	public void evolve() {
 		int nbLivNgb;
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid[0].length; j++) {
 				nbLivNgb=countLivingNeighbors(i,j);
-
                 if (grid[i][j] == 1) {
-					if (contains(survivalRules, nbLivNgb) )
-					//if (nbLivNgb >= 0 && nbLivNgb <= 8)
-                        clone[i][j] = 1;
+					if (survivalRules.contains(nbLivNgb))
+						clone[i][j] = 1;
 					else
 						clone[i][j] = 0;
-
-                  /*  if (nbLivNgb < 2 || nbLivNgb > 3)
-                        clone[i][j] = 0;
-					else
-						clone[i][j] = 1;*/
-                }
+				}
                 else {
-                    if (contains(birthRules, nbLivNgb) )
-                   // if (nbLivNgb == 3 || nbLivNgb == 5 || nbLivNgb == 6 || nbLivNgb == 7 || nbLivNgb == 8)
+					if (birthRules.contains(nbLivNgb))
                         clone[i][j] = 1;
 					else
 						clone[i][j] = 0;
@@ -131,17 +98,6 @@ public class Automata {
 			for (int j = 0; j < grid[0].length; j++) {
 				grid[i][j] = clone[i][j];
 			}
-		}
-
-	}
-
-	public void display() {								// Display of the grid
-		for (int i=0; i<grid.length; i++) {
-			for (int j=0; j<grid[0].length; j++) {
-				if (grid[i][j]==1) System.out.print("X");
-				else System.out.print("-");
-			}
-			System.out.println();
 		}
 	}
 }

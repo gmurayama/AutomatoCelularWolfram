@@ -2,6 +2,7 @@ package lccm.sippe.model;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -19,11 +20,16 @@ public final class GamePreferences{
     private static int CELL_GRID_SIZE = 50;
     private static boolean BORDERED_GRID = true;
     private static String[] RULE_NAMES = {"Conway's Life", "2 x 2", "Amoeba", "Assimilation",
-                                          "Diamoeba",  "Flakes", "Gnarl"};
+                                          "Diamoeba",  "Flakes", "Gnarl", "Maze", "Walled Cities",
+                                           "Long life", "Day & Night", "Mazectric", "Replicator", "Mamadou" };
 
     private static Integer[][] SURVIVAL_PRESETS = {{2,3}, {1, 2, 5}, {1, 3, 5, 8}, {4, 5, 6, 7},
-                                                {5, 6, 7, 8}, {0, 1, 2, 3, 4, 5, 6, 7, 8}, {1}};
-    private static Integer[][] BIRTH_PRESETS = {{3}, {3, 6}, {3, 5, 7}, {3, 4, 5}, {3, 5, 6, 7, 8}, {3}, {1}};
+                                                {5, 6, 7, 8}, {0, 1, 2, 3, 4, 5, 6, 7, 8}, {1},
+                                                {1, 2, 3, 4, 5}, {2, 3, 4, 5}, {5}, {3, 4, 6, 7, 8},
+                                                {1, 2, 3, 4}, {1, 3, 5, 7}, {2,3}};
+    private static Integer[][] BIRTH_PRESETS = {{3}, {3, 6}, {3, 5, 7}, {3, 4, 5}, {3, 5, 6, 7, 8}, {3},
+                                                {1}, {3}, {4, 5, 6, 7, 8}, {3, 4, 5},{3, 6, 7, 8}, {3},
+                                                {1, 3, 5, 7},{3, 4, 5, 6, 7, 8}};
 
     private static Integer[] SURVIVAL_PRESET = SURVIVAL_PRESETS[0];
 
@@ -51,10 +57,10 @@ public final class GamePreferences{
     public static Integer[] getSurvivalPreset(){
         return SURVIVAL_PRESET;
     }
+
     public static Integer[] getBirthPreset(){
         return BIRTH_PRESET;
     }
-
 
     public static Color getDeadCellColor() {
         return DEAD_CELL_COLOR;

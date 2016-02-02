@@ -37,10 +37,6 @@ public class CellPanel extends JPanel{
         this.isAlive = false;
     }
 
-    public void setCellPointerColor(){
-        this.setBackground(GamePreferences.getCellPointerColor());
-    }
-
     public boolean isAlive(){
         return isAlive;
     };
