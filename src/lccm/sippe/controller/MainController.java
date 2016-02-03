@@ -108,6 +108,12 @@ public class MainController {
                 openPreferencesDialog();
             }
         });
+        guiFrame.getAboutMenu().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                openAboutDialog();
+            }
+        });
         preferencesDialog.getCancelButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {closePreferencesDialog();
@@ -141,6 +147,13 @@ public class MainController {
 
     private void closePreferencesDialog() {
         preferencesDialog.dispose();
+    }
+
+    private void openAboutDialog(){
+        JOptionPane.showMessageDialog(preferencesDialog, " Swing GoL was made by Luis Carlos Castillo Martinez" +
+                "\n inspired on Conway's game of Life and Mirek Wojtowicz MCell" +
+                "\n This software is provided under the MIT license.",
+                "About Swing GoL",JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**

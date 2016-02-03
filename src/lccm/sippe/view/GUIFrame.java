@@ -91,7 +91,7 @@ public class GUIFrame extends JFrame{
         this.preferencesMenu = preferencesMenu;
     }
 
-    private JMenuItem getAboutMenu() {
+    public JMenuItem getAboutMenu() {
         return aboutMenu;
     }
 
