@@ -19,11 +19,11 @@ Note that the count of colors (states) has no influence on next generations, bec
 
 
 Notable life implementations:
-*McCell http://www.mirekw.com/ca/whatis_mcell.html
-*Golly http://golly.sourceforge.net/
-*XLife http://conwaylife.com/wiki/Xlife
+McCell http://www.mirekw.com/ca/whatis_mcell.html
+Golly http://golly.sourceforge.net/
+XLife http://conwaylife.com/wiki/Xlife
 
 
 Sources
-1. https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
-2. Mirek Wojtowicz at http://www.mirekw.com/ca/rullex_life.html [2]
+1 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+2 Mirek Wojtowicz at http://www.mirekw.com/ca/rullex_life.html [2]
