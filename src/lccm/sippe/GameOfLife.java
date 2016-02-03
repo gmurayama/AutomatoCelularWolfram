@@ -9,8 +9,8 @@ import lccm.sippe.controller.MainController;
  * github.com/luisccastillo
  */
 
-public class GameOfLife {
+class GameOfLife {
 	public static void main(String[] arg) {
-        MainController mainController = new MainController();
+        new MainController();
     }
 }

@@ -16,8 +16,8 @@ import java.awt.event.MouseListener;
  */
 public class CellPanelGridController extends JPanel{
 
-    private int xCellCount;
-    private int yCellCount;
+    private final int xCellCount;
+    private final int yCellCount;
     private int[][] automataCopy;
 
     public CellPanelGridController(int xCellCount, int yCellCount){
@@ -28,7 +28,7 @@ public class CellPanelGridController extends JPanel{
         fillCellPanelGrid();
     }
 
-    public void initialize(){
+    private void initialize(){
         this.setBackground(Color.gray);
         this.setLayout(new GridLayout(xCellCount, yCellCount));
         addCellPanels();
@@ -144,7 +144,7 @@ public class CellPanelGridController extends JPanel{
      * @param col int the col number where the cell is located
      * @return CellPanel the CellPanel found at the row, col position
      */
-    public CellPanel getCellPanelAtPosition(int row, int col){
+    private CellPanel getCellPanelAtPosition(int row, int col){
         int index = row * xCellCount + col;
         return (CellPanel)getComponent(index);
     }

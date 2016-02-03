@@ -170,9 +170,7 @@ public class MainController {
     }
 
     private boolean isValidInput(String input){
-        if (input.matches("[0-8]+(\\,[$0-8])*"))
-            return true;
-        else return false;
+        return input.matches("[0-8]+(,[$0-8])*");
     }
 
 

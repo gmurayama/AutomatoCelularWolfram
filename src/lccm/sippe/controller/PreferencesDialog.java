@@ -5,11 +5,9 @@ import lccm.sippe.model.GamePreferences;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.*;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import java.util.List;
  * lcarlos.asimov@gmail.com
  * github.com/luisccastillo
  */
-public class PreferencesDialog extends JDialog {
+class PreferencesDialog extends JDialog {
 
     private JButton okButton;
     private JButton cancelButton;
@@ -33,10 +31,8 @@ public class PreferencesDialog extends JDialog {
     private JTextField birthRulesTextField;
     private JTextField survivalRulesTextField;
 
-    private static int HEIGHT = 370;
-    private static int WIDTH = 300;
-    private static Color randomColor = new Color(233, 233, 233);
-    private static List<Color> colors = new ArrayList<>
+    private final static Color randomColor = new Color(233, 233, 233);
+    private final static List<Color> colors = new ArrayList<>
             (Arrays.asList(randomColor, Color.BLACK, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY,
                     Color.GREEN, Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.WHITE, Color.YELLOW));
     private Random random;
@@ -47,6 +43,8 @@ public class PreferencesDialog extends JDialog {
     }
 
     private void initialize(){
+        int HEIGHT = 370;
+        int WIDTH = 300;
         okButton = new JButton("Ok");
         cancelButton = new JButton("Cancel");
         aliveCellGridColorButton = new JButton("");
@@ -175,7 +173,7 @@ public class PreferencesDialog extends JDialog {
 
     /** Changes the background color of the element
      * from the static list of colors in game preferences
-    * @params jButton JButton the button to be modified
+    * @param jButton JButton the button to be modified
      */
     private void changeButtonBackgroundColor(JButton jButton){
         Color currentColor = jButton.getBackground();
@@ -241,7 +239,7 @@ public class PreferencesDialog extends JDialog {
         return stringToIntegerArray(getSurvivalRulesTextField().getText());
     }
 
-    public JComboBox getRulePresetComboBox() {
+    private JComboBox getRulePresetComboBox() {
         return rulePresetComboBox;
     }
 
@@ -283,23 +281,20 @@ public class PreferencesDialog extends JDialog {
 
     public int getCellGridSize() { return (int)boardSizeSpinner.getValue();}
 
-    public JButton getCellPointerColorButton(){ return pointerColorButton; }
+    private JButton getCellPointerColorButton(){ return pointerColorButton; }
 
-    public JButton getBorderColorButton(){ return borderColorButton; }
+    private JButton getBorderColorButton(){ return borderColorButton; }
 
-    public JButton getAliveCellGridColorButton(){ return aliveCellGridColorButton; }
+    private JButton getAliveCellGridColorButton(){ return aliveCellGridColorButton; }
 
-    public JButton getDeadCellGridColorButton(){ return deadCellGridColorButton; }
+    private JButton getDeadCellGridColorButton(){ return deadCellGridColorButton; }
 
-    public JCheckBox getDisplayBordersCheckBox(){ return displayBordersCheckBox; }
+    private JCheckBox getDisplayBordersCheckBox(){ return displayBordersCheckBox; }
 
-    public JSpinner getBoardSizeSpinner(){ return boardSizeSpinner;}
+    private JSpinner getBoardSizeSpinner(){ return boardSizeSpinner;}
 
     public boolean displaysBorders(){
-        if (displayBordersCheckBox.isSelected())
-            return true;
-        else
-            return false;
+        return displayBordersCheckBox.isSelected();
     }
 
     public JButton getOkButton() {

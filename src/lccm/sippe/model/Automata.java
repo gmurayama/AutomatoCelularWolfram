@@ -14,10 +14,10 @@ import java.util.Random;
  */
 public class Automata {
 
-	protected int grid[][], clone[][];
-	private static Random random = new Random();
-	private ArrayList<Integer> survivalRules;
-	private ArrayList<Integer> birthRules;
+	private int grid[][], clone[][];
+	private static final Random random = new Random();
+	private final ArrayList<Integer> survivalRules;
+	private final ArrayList<Integer> birthRules;
 
 	public Automata(int lineNb, int columnNb, Integer[] survivalRules, Integer[] birthRules) {
 		grid= new int[lineNb][columnNb];
@@ -95,9 +95,7 @@ public class Automata {
 		}
 
 		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[0].length; j++) {
-				grid[i][j] = clone[i][j];
-			}
+			System.arraycopy(clone[i], 0, grid[i], 0, grid[0].length);
 		}
 	}
 }

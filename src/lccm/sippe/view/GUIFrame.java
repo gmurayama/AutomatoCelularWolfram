@@ -22,13 +22,7 @@ public class GUIFrame extends JFrame{
     private JSlider speedSlider;
     private JMenuItem aboutMenu;
     private CellPanelGridController cellGridPanelController;
-    private static int MIN_SIZE = 400;
-    private static int DEFAULT_SIZE = 10;
 
-    public GUIFrame(){
-        setCellGridPanelController(new CellPanelGridController(DEFAULT_SIZE, DEFAULT_SIZE));
-        initGUI();
-    }
 
     public GUIFrame(int xCellCount, int yCellCount){
         setCellGridPanelController(new CellPanelGridController(xCellCount, yCellCount));
@@ -37,6 +31,7 @@ public class GUIFrame extends JFrame{
 
     private void initGUI(){
         //Window and layout properties
+        int MIN_SIZE = 400;
         this.setMinimumSize(new Dimension(MIN_SIZE, MIN_SIZE));
         this.setSize(new Dimension(MIN_SIZE + 200, MIN_SIZE + 300));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -92,15 +87,15 @@ public class GUIFrame extends JFrame{
         return preferencesMenu;
     }
 
-    public void setPreferencesMenu(JMenuItem preferencesMenu) {
+    private void setPreferencesMenu(JMenuItem preferencesMenu) {
         this.preferencesMenu = preferencesMenu;
     }
 
-    public JMenuItem getAboutMenu() {
+    private JMenuItem getAboutMenu() {
         return aboutMenu;
     }
 
-    public void setAboutMenu(JMenuItem aboutMenu) {
+    private void setAboutMenu(JMenuItem aboutMenu) {
         this.aboutMenu = aboutMenu;
     }
 
@@ -108,7 +103,7 @@ public class GUIFrame extends JFrame{
         return cellGridPanelController;
     }
 
-    public void setCellGridPanelController(CellPanelGridController cellGridPanelController) {
+    private void setCellGridPanelController(CellPanelGridController cellGridPanelController) {
         this.cellGridPanelController = cellGridPanelController;
     }
 
@@ -116,7 +111,7 @@ public class GUIFrame extends JFrame{
         return startStopButton;
     }
 
-    public void setStartStopButton(JButton startStopButton) {
+    private void setStartStopButton(JButton startStopButton) {
         this.startStopButton = startStopButton;
     }
 
@@ -124,7 +119,7 @@ public class GUIFrame extends JFrame{
         return clearGridButton;
     }
 
-    public void setClearGridButton(JButton clearGridButton) {
+    private void setClearGridButton(JButton clearGridButton) {
         this.clearGridButton = clearGridButton;
     }
 
@@ -132,7 +127,7 @@ public class GUIFrame extends JFrame{
         return randomizeGridButton;
     }
 
-    public void setRandomizeGridButton(JButton randomizeGridButton) {
+    private void setRandomizeGridButton(JButton randomizeGridButton) {
         this.randomizeGridButton = randomizeGridButton;
     }
 
@@ -140,7 +135,7 @@ public class GUIFrame extends JFrame{
         return speedSlider;
     }
 
-    public void setSpeedSlider(JSlider speedSlider) {
+    private void setSpeedSlider(JSlider speedSlider) {
         this.speedSlider = speedSlider;
     }
 }
