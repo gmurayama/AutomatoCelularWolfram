@@ -9,7 +9,7 @@ One interacts with the Game of Life by creating an initial configuration and obs
 by creating patterns with particular properties. [1]
 
 
-Life rules notation
+#Life rules notation
 
 Life rules are defined in the "S/B" form, where:
 S - defines counts of alive neighbors necessary for a cell to survive,
@@ -18,12 +18,12 @@ B - defines counts of alive neighbors necessary for a cell to be born.
 Note that the count of colors (states) has no influence on next generations, because Life is a one-bit family of rules.[2]
 
 
-Notable life implementations:
+#Notable life implementations:
 McCell http://www.mirekw.com/ca/whatis_mcell.html
 Golly http://golly.sourceforge.net/
 XLife http://conwaylife.com/wiki/Xlife
 
 
-Sources
-1 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
-2 Mirek Wojtowicz at http://www.mirekw.com/ca/rullex_life.html [2]
+#Sources
+https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+http://www.mirekw.com/ca/rullex_life.html
