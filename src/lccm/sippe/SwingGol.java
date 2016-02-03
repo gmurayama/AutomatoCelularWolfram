@@ -1,5 +1,4 @@
 package lccm.sippe;
-
 import lccm.sippe.controller.MainController;
 
 /**
@@ -9,7 +8,7 @@ import lccm.sippe.controller.MainController;
  * github.com/luisccastillo
  */
 
-class GameOfLife {
+class SwingGol {
 	public static void main(String[] arg) {
         new MainController();
     }
