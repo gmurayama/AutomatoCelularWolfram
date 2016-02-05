@@ -8,7 +8,7 @@ import lccm.sippe.controller.MainController;
  * github.com/luisccastillo
  */
 
-class SwingGol {
+public class SwingGol {
 	public static void main(String[] arg) {
         new MainController();
     }

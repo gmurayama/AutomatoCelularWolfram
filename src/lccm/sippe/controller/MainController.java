@@ -18,10 +18,10 @@ import java.awt.event.*;
 public class MainController {
 
     private GUIFrame guiFrame;
-    private CellPanelGridController cellGridPanelController;
+    private volatile CellPanelGridController cellGridPanelController;
     private PreferencesDialog preferencesDialog;
-    private Automata automata;
-    private boolean isRunning;
+    private volatile Automata automata;
+    private volatile boolean isRunning;
     private int speed;
 
     public MainController(){
