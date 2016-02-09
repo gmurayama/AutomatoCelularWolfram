@@ -14,7 +14,7 @@ Note that the count of colors (states) has no influence on next generations, bec
 
 ## Swing GoL 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/6378201/12917329/5f03d8b0-cefe-11e5-80b8-8f739a51e342.png" alt="SwingGoL"/>
+  <img src="https://cloud.githubusercontent.com/assets/6378201/12917606/e689878e-ceff-11e5-9862-94286c40b6e3.png" alt="SwingGoL"/>
 </p>
 
 The program allows graphical customization for border color as well as for the state of the cells.
