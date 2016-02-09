@@ -3,6 +3,7 @@ package lccm.sippe.view;
 import lccm.sippe.model.GamePreferences;
 
 import javax.swing.*;
+import java.awt.Color;
 
 
 /**
@@ -14,6 +15,8 @@ import javax.swing.*;
 public class CellPanel extends JPanel{
 
     private boolean isAlive;
+    private final Color deadCellColor = GamePreferences.getDeadCellColor();
+    private final Color aliveCellColor = GamePreferences.getAliveCellColor();
 
     public CellPanel(){
         initialize();
@@ -25,12 +28,12 @@ public class CellPanel extends JPanel{
     }
 
     public void setAlive(){
-        this.setBackground(GamePreferences.getAliveCellColor());
+        this.setBackground(aliveCellColor);
         this.isAlive = true;
     }
 
     public void setDead(){
-        this.setBackground(GamePreferences.getDeadCellColor());
+        this.setBackground(deadCellColor);
         this.isAlive = false;
     }
 

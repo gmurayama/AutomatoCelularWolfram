@@ -18,12 +18,15 @@ public class CellPanelGridController extends JPanel{
 
     private final int xCellCount;
     private final int yCellCount;
-    private int[][] automataCopy;
+    private boolean[][] automataReference;
+    private final Color aliveCellColor = GamePreferences.getAliveCellColor();
+    private final Color deadCellColor = GamePreferences.getDeadCellColor();
+    private final Color cellPointerColor = GamePreferences.getCellPointerColor();
 
     public CellPanelGridController(int xCellCount, int yCellCount){
         this.xCellCount = xCellCount;
         this.yCellCount = yCellCount;
-        automataCopy = new int[xCellCount][yCellCount];
+        automataReference = new boolean[xCellCount][yCellCount];
         initialize();
         fillCellPanelGrid();
     }
@@ -85,15 +88,15 @@ public class CellPanelGridController extends JPanel{
 
     private void paintMouseEnteredCell(int row, int col) {
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
-        cellPanel.setBackground(GamePreferences.getCellPointerColor());
+        cellPanel.setBackground(cellPointerColor);
     }
 
     private void paintMouseExitedCell(int row, int col){
         CellPanel cellPanel = getCellPanelAtPosition(row, col);
         if (cellPanel.isAlive())
-            cellPanel.setBackground(GamePreferences.getAliveCellColor());
+            cellPanel.setBackground(aliveCellColor);
         else
-            cellPanel.setBackground(GamePreferences.getDeadCellColor());
+            cellPanel.setBackground(deadCellColor);
     }
 
     /** Modifies the value of the CellPanel at a given position
@@ -115,10 +118,10 @@ public class CellPanelGridController extends JPanel{
      * @param col int the col number where the cell is located
      */
     private void modifyAutomataAtPosition(int row, int col) {
-        if (automataCopy[row][col] == 1)
-            automataCopy[row][col] = 0;
+        if (automataReference[row][col])
+            automataReference[row][col] = false;
         else
-            automataCopy[row][col] = 1;
+            automataReference[row][col] = true;
     }
 
     /** Iterates over the Automata array copy,
@@ -127,10 +130,10 @@ public class CellPanelGridController extends JPanel{
      */
     public void fillCellPanelGrid(){
         CellPanel cellPanel;
-        for (int i = 0; i < automataCopy.length; i++) {
-            for (int j = 0; j < automataCopy[0].length; j++) {
+        for (int i = 0; i < automataReference.length; i++) {
+            for (int j = 0; j < automataReference[0].length; j++) {
                 cellPanel = getCellPanelAtPosition(i,j);
-                if (automataCopy[i][j] == 1)
+                if (automataReference[i][j])
                     cellPanel.setAlive();
                 else
                     cellPanel.setDead();
@@ -160,12 +163,12 @@ public class CellPanelGridController extends JPanel{
         }
     }
 
-    public int[][] getAutomataCopy() {
-        return automataCopy;
+    public boolean[][] getAutomataReference() {
+        return automataReference;
     }
 
-    public void setAutomataCopy(int[][] automataCopy) {
-        this.automataCopy = automataCopy;
+    public void setAutomataReference(boolean[][] automataReference) {
+        this.automataReference = automataReference;
     }
 
 }

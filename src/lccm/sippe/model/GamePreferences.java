@@ -22,42 +22,42 @@ public final class GamePreferences{
                                           "Diamoeba",  "Flakes", "Gnarl", "Maze", "Walled Cities",
                                            "Long life", "Day & Night", "Mazectric", "Replicator", "Mamadou" };
 
-    private final static Integer[][] SURVIVAL_PRESETS = {{2,3}, {1, 2, 5}, {1, 3, 5, 8}, {4, 5, 6, 7},
-                                                {5, 6, 7, 8}, {0, 1, 2, 3, 4, 5, 6, 7, 8}, {1},
-                                                {1, 2, 3, 4, 5}, {2, 3, 4, 5}, {5}, {3, 4, 6, 7, 8},
-                                                {1, 2, 3, 4}, {1, 3, 5, 7}, {2,3}};
-    private final static Integer[][] BIRTH_PRESETS = {{3}, {3, 6}, {3, 5, 7}, {3, 4, 5}, {3, 5, 6, 7, 8}, {3},
-                                                {1}, {3}, {4, 5, 6, 7, 8}, {3, 4, 5},{3, 6, 7, 8}, {3},
-                                                {1, 3, 5, 7},{3, 4, 5, 6, 7, 8}};
+    private final static String[] SURVIVAL_PRESETS = {"2,3", "1,2,5", "1,3,5,8", "4,5,6,7",
+                                                "5,6,7,8", "0,1,2,3,4,5,6,7,8", "1",
+                                                "1,2,3,4,5", "2,3,4,5", "5", "3,4,6,7,8",
+                                                "1,2,3,4", "1,3,5,7", "2,3"};
+    private final static String[] BIRTH_PRESETS = {"3", "3,6", "3,5,7", "3,4,5", "3,5,6,7,8", "3",
+                                                "1", "3", "4,5,6,7,8", "3, 4, 5","3,6,7,8", "3",
+                                                "1,3,5,7","3,4,5,6,7,8"};
 
-    private static Integer[] SURVIVAL_PRESET = SURVIVAL_PRESETS[0];
+    private static String SURVIVAL_PRESET = SURVIVAL_PRESETS[0];
 
-    private static Integer[] BIRTH_PRESET = BIRTH_PRESETS[0];
+    private static String BIRTH_PRESET = BIRTH_PRESETS[0];
 
     private GamePreferences(){
     }
 
-    public static Integer[] getSurvivalPresetAt(int index){
+    public static String getSurvivalPresetAt(int index){
         return SURVIVAL_PRESETS[index];
     }
 
-    public static void setSurvivalPreset(Integer[] survivalPreset){
+    public static void setSurvivalPreset(String survivalPreset){
         SURVIVAL_PRESET = survivalPreset;
     }
 
-    public static Integer[] getBirthPresetAt(int index){
+    public static String getBirthPresetAt(int index){
         return BIRTH_PRESETS[index];
     }
 
-    public static void setBirthPreset(Integer[] birthPreset){
+    public static void setBirthPreset(String birthPreset){
         BIRTH_PRESET = birthPreset;
     }
 
-    public static Integer[] getSurvivalPreset(){
+    public static String getSurvivalPreset(){
         return SURVIVAL_PRESET;
     }
 
-    public static Integer[] getBirthPreset(){
+    public static String getBirthPreset(){
         return BIRTH_PRESET;
     }
 
@@ -112,7 +112,4 @@ public final class GamePreferences{
     public static String[] getRULES() {
         return RULE_NAMES;
     }
-
-
-
 }

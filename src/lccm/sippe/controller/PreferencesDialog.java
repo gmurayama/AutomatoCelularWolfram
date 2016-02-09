@@ -76,8 +76,8 @@ class PreferencesDialog extends JDialog {
         getBorderColorButton().setBackground(GamePreferences.getBorderColor());
         getBorderColorButton().setFocusPainted(false);
         getBoardSizeSpinner().setModel(spinnerModel);
-        getSurvivalRulesTextField().setText(alterString(Arrays.toString(GamePreferences.getSurvivalPreset())));
-        getBirthRulesTextField().setText(alterString(Arrays.toString(GamePreferences.getBirthPreset())));
+        getSurvivalRulesTextField().setText(GamePreferences.getSurvivalPreset());
+        getBirthRulesTextField().setText(GamePreferences.getBirthPreset());
 
         //border layout: center
         JPanel verticalLayoutPanel;
@@ -188,55 +188,24 @@ class PreferencesDialog extends JDialog {
         }
     }
 
-    /** Removes the [ ] characters from the array to string transformation
-     * as well as empty spaces
-     * @param string string to be modified
-     * @return string string after being modified
-     */
-    private String alterString(String string){
-        string = string.substring(1 , string.length() - 1);
-        string = string.replaceAll("\\s+","");
-        return string;
-    }
-
     /** Changes the values of the survival and birth JTextFields depending on the
      * JComboBox selection
     * @param rulePresetComboBox JComboBox that holds the rule selection in the UI
      **/
     private void changeRulePreset(JComboBox rulePresetComboBox){
         int index = rulePresetComboBox.getSelectedIndex();
-        String stringSurvivalRule = alterString(Arrays.toString(GamePreferences.getSurvivalPresetAt(index)));
+        String stringSurvivalRule = GamePreferences.getSurvivalPresetAt(index);
         getSurvivalRulesTextField().setText(stringSurvivalRule);
-        String stringBirthRule = alterString(Arrays.toString(GamePreferences.getBirthPresetAt(index)));
+        String stringBirthRule = GamePreferences.getBirthPresetAt(index);
         getBirthRulesTextField().setText(stringBirthRule);
     }
 
-    /**
-    *  Transforms a string into an array of Integers by the split of a ","
-     * @param text String to be split
-     * @return rules Integer[] the created array with integer values
-     */
-    private Integer[] stringToIntegerArray(String text){
-        String [] textFieldString = text.split(",");
-        Integer[] rules = new Integer[textFieldString.length];
-        for(int i=0; i<rules.length; i++)
-        {
-            try{
-                rules[i] = Integer.parseInt(textFieldString[i]);
-            }
-            catch(NumberFormatException nfe){
-                nfe.printStackTrace();
-            }
-        }
-        return rules;
+    public String getBirthRulePreset(){
+        return getBirthRulesTextField().getText();
     }
 
-    public Integer[] getBirthRulePreset(){
-        return stringToIntegerArray(getBirthRulesTextField().getText());
-    }
-
-    public Integer[] getSurvivalRulePreset(){
-        return stringToIntegerArray(getSurvivalRulesTextField().getText());
+    public String getSurvivalRulePreset(){
+        return getSurvivalRulesTextField().getText();
     }
 
     private JComboBox getRulePresetComboBox() {

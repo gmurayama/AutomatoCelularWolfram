@@ -32,8 +32,9 @@ public class MainController {
     private void createGame(){
         int gameSize = GamePreferences.getCellGridSize();
         this.guiFrame = new GUIFrame(gameSize, gameSize);
-        this.automata = new Automata(gameSize, gameSize,
-                GamePreferences.getSurvivalPreset(), GamePreferences.getBirthPreset());
+        Integer[] survivalPreset = stringToIntegerArray(GamePreferences.getSurvivalPreset());
+        Integer[] birthPreset = stringToIntegerArray(GamePreferences.getBirthPreset());
+        this.automata = new Automata(gameSize, gameSize, survivalPreset, birthPreset);
         this.cellGridPanelController = guiFrame.getCellGridPanelController();
         this.preferencesDialog  = new PreferencesDialog();
     }
@@ -70,7 +71,7 @@ public class MainController {
             while (true)
                 if (isRunning){
                     automata.evolve();
-                    cellGridPanelController.setAutomataCopy(automata.getGrid());
+                    cellGridPanelController.setAutomataReference(automata.getGrid());
                     cellGridPanelController.fillCellPanelGrid();
                     try{
                         Thread.sleep(speed);
@@ -79,7 +80,7 @@ public class MainController {
                     }
                 }
                 else {
-                    automata.setGrid(cellGridPanelController.getAutomataCopy());
+                    automata.setGrid(cellGridPanelController.getAutomataReference());
                 }
         }
     }
@@ -133,7 +134,9 @@ public class MainController {
      */
     private void createNewGame(){
         int boardSize = GamePreferences.getCellGridSize();
-        automata = new Automata(boardSize, boardSize, GamePreferences.getSurvivalPreset(), GamePreferences.getBirthPreset());
+        Integer[] survivalPreset = stringToIntegerArray(GamePreferences.getSurvivalPreset());
+        Integer[] birthPreset = stringToIntegerArray(GamePreferences.getBirthPreset());
+        automata = new Automata(boardSize, boardSize, survivalPreset, birthPreset);
         guiFrame.remove(cellGridPanelController);
         cellGridPanelController = new CellPanelGridController(boardSize, boardSize);
         guiFrame.add(cellGridPanelController, BorderLayout.CENTER);
@@ -186,6 +189,25 @@ public class MainController {
         return input.matches("[0-8]+(,[$0-8])*");
     }
 
+    /**
+     *  Transforms a string into an array of Integers by the split of a ","
+     * @param text String to be split
+     * @return rules Integer[] the created array with integer values
+     */
+    private Integer[] stringToIntegerArray(String text){
+        String [] textFieldString = text.split(",");
+        Integer[] rules = new Integer[textFieldString.length];
+        for(int i=0; i<rules.length; i++)
+        {
+            try{
+                rules[i] = Integer.parseInt(textFieldString[i]);
+            }
+            catch(NumberFormatException nfe){
+                nfe.printStackTrace();
+            }
+        }
+        return rules;
+    }
 
     /** Changes the state of the isRunning flag,
     *  modifies the setEnabled property of the JButton elements
@@ -223,7 +245,7 @@ public class MainController {
      */
     private void clearGrid(){
         automata.init();
-        cellGridPanelController.setAutomataCopy(automata.getGrid());
+        cellGridPanelController.setAutomataReference(automata.getGrid());
         cellGridPanelController.emptyGrid();
     }
 }
