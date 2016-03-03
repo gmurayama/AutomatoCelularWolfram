@@ -17,11 +17,11 @@ Note that the count of colors (states) has no influence on next generations, bec
   <img src="https://cloud.githubusercontent.com/assets/6378201/12917606/e689878e-ceff-11e5-9862-94286c40b6e3.png" alt="SwingGoL"/>
 </p>
 
-The program allows graphical customization for border color as well as for the state of the cells.
+Swing GoL's purpose is the customization of visual properties such as cell and border colors, the program also accepts the parametrization of user-entered rules. This allows the program to create unique combinations of patterns based on different rule-colors settings.   
 
 
 # Built-in rule family screenshots 
-(All descriptions are credited to Mirek Wojtowicz) 
+(Rule descriptions are credited to Mirek Wojtowicz) 
 
 ## Replicator (1357/1357)
 <p align="center">
@@ -44,7 +44,7 @@ A rule by Charles A. Rockafellor.
   <img src="https://cloud.githubusercontent.com/assets/6378201/12784424/c802e218-ca4c-11e5-934a-009de3191f31.png" alt="Mamadou"/>
 </p>
 
-A modification of the original Game of Life rules where the birth rules include all values superior to 3, start with simple patterns such as a cross and watch the automata evolve in lovely patterns.
+A modification of the original Game of Life rules where the birth rules include all values above 3, start with simple patterns such as a cross and watch the automata evolve in very intresting patterns.
 
 ## Gnarl (1/1)
 <p align="center">
