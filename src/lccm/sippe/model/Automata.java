@@ -57,7 +57,9 @@ public class Automata {
         }
 	}
 
-
+	/*
+	Counts the number of alive (true) cells according to a i,j position
+	*/
 	private int countLivingNeighbors(int i, int j) {
 		int s = 0;
 		if (i>0)
@@ -77,18 +79,6 @@ public class Automata {
 		if ((i>0) && (j>0))
 			s = s + (grid[i-1][j-1]? 1:0);
 		return s;
-
-		/*
-		if (i>0) s=s+grid[i-1][j];
-		if ((i>0) && (j<grid[0].length-1)) s=s+grid[i-1][j+1];
-		if (j<grid[0].length-1) s=s+grid[i][j+1];
-		if ((i<grid.length-1) && (j<grid[0].length-1)) s=s+grid[i+1][j+1];
-		if (i<grid.length-1) s=s+grid[i+1][j];
-		if ((i<grid.length-1) && (j>0)) s=s+grid[i+1][j-1];
-		if (j>0) s=s+grid[i][j-1];
-		if ((i>0) && (j>0)) s=s+grid[i-1][j-1];
-		return s;
-		 */
 	}
 
 	/**
