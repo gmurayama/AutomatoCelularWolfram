@@ -14,8 +14,7 @@ Note that the count of colors (states) has no influence on next generations, bec
 
 ## Swing GoL 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/6378201/12917606/e689878e-ceff-11e5-9862-94286c40b6e3.png" alt="SwingGoL"/>
-</p>
+[![Swing GoL](https://cloud.githubusercontent.com/assets/6378201/12917606/e689878e-ceff-11e5-9862-94286c40b6e3.png)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Swing GoL")
 
 Swing GoL's purpose is the customization of visual properties such as cell and border colors, the program also accepts the parametrization of user-entered rules. This allows the program to create unique combinations of patterns based on different rule-colors settings.   
 
