@@ -86,4 +86,8 @@ A rule by Dean Hickerson.
 
 ### Sources
 1. https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
-1. Mirek Wojtowicz at http://www.mirekw.com/ca/rullex_life.html
+2. Mirek Wojtowicz at http://www.mirekw.com/ca/rullex_life.html
+
+GIFs were created with the screenToGif free tool
+http://screentogif.codeplex.com/
+
