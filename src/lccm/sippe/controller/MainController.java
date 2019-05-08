@@ -153,8 +153,9 @@ public class MainController {
     }
 
     private void openAboutDialog(){
-        JOptionPane.showMessageDialog(preferencesDialog, " Swing GoL was made by Luis Carlos Castillo Martinez" +
-                "\n inspired on Conway's game of Life and Mirek Wojtowicz MCell" +
+        JOptionPane.showMessageDialog(preferencesDialog, " Elementary Cellular Automaton graphic visualization. " +
+                "\n Project developed as an assignment for the subject \"Artificial Life in Computer\" by Federal University of ABC. " +
+                "\n It was built on top of Swing GoL by Luis Carlos Castillo Martinez. " + 
                 "\n This software is provided under the MIT license.",
                 "About Swing GoL",JOptionPane.INFORMATION_MESSAGE);
     }
