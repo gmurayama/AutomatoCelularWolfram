@@ -23,6 +23,7 @@ public class MainController {
     private volatile Automata automata;
     private volatile boolean isRunning;
     private int speed;
+    private int step;
 
     public MainController(){
         createGame();
@@ -32,9 +33,8 @@ public class MainController {
     private void createGame(){
         int gameSize = GamePreferences.getCellGridSize();
         this.guiFrame = new GUIFrame(gameSize, gameSize);
-        Integer[] survivalPreset = stringToIntegerArray(GamePreferences.getSurvivalPreset());
-        Integer[] birthPreset = stringToIntegerArray(GamePreferences.getBirthPreset());
-        this.automata = new Automata(gameSize, gameSize, survivalPreset, birthPreset);
+        String[] survivalPreset = GamePreferences.getSurvivalPreset().split(",");
+        this.automata = new Automata(gameSize, gameSize, survivalPreset);
         this.cellGridPanelController = guiFrame.getCellGridPanelController();
         this.preferencesDialog  = new PreferencesDialog();
     }
@@ -70,7 +70,7 @@ public class MainController {
         public void run(){
             while (true)
                 if (isRunning){
-                    automata.evolve();
+                    automata.evolve(step);
                     cellGridPanelController.setAutomataReference(automata.getGrid());
                     cellGridPanelController.fillCellPanelGrid();
                     try{
@@ -78,6 +78,8 @@ public class MainController {
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
+                    
+                    step++;
                 }
                 else {
                     automata.setGrid(cellGridPanelController.getAutomataReference());
@@ -134,14 +136,14 @@ public class MainController {
      */
     private void createNewGame(){
         int boardSize = GamePreferences.getCellGridSize();
-        Integer[] survivalPreset = stringToIntegerArray(GamePreferences.getSurvivalPreset());
-        Integer[] birthPreset = stringToIntegerArray(GamePreferences.getBirthPreset());
-        automata = new Automata(boardSize, boardSize, survivalPreset, birthPreset);
+        String[] survivalPreset = GamePreferences.getSurvivalPreset().split(",");
+        automata = new Automata(boardSize, boardSize, survivalPreset);
         guiFrame.remove(cellGridPanelController);
         cellGridPanelController = new CellPanelGridController(boardSize, boardSize);
         guiFrame.add(cellGridPanelController, BorderLayout.CENTER);
         guiFrame.validate();
         guiFrame.repaint();
+        step = 0;
     }
 
     private void openPreferencesDialog(){
@@ -173,11 +175,9 @@ public class MainController {
         GamePreferences.setCellGridSize(preferencesDialog.getCellGridSize());
 
         String survivalRulesInput = preferencesDialog.getSurvivalRulesTextField().getText();
-        String birthRulesInput = preferencesDialog.getBirthRulesTextField().getText();
 
-        if (isValidInput(survivalRulesInput) && isValidInput(birthRulesInput)) {
+        if (isValidInput(survivalRulesInput)) {
             GamePreferences.setSurvivalPreset(preferencesDialog.getSurvivalRulePreset());
-            GamePreferences.setBirthPreset(preferencesDialog.getBirthRulePreset());
             preferencesDialog.dispose();
             createNewGame();
         }
@@ -187,27 +187,7 @@ public class MainController {
     }
 
     private boolean isValidInput(String input){
-        return input.matches("[0-8]+(,[$0-8])*");
-    }
-
-    /**
-     *  Transforms a string into an array of Integers by the split of a ","
-     * @param text String to be split
-     * @return rules Integer[] the created array with integer values
-     */
-    private Integer[] stringToIntegerArray(String text){
-        String [] textFieldString = text.split(",");
-        Integer[] rules = new Integer[textFieldString.length];
-        for(int i=0; i<rules.length; i++)
-        {
-            try{
-                rules[i] = Integer.parseInt(textFieldString[i]);
-            }
-            catch(NumberFormatException nfe){
-                nfe.printStackTrace();
-            }
-        }
-        return rules;
+        return input.matches("[0-1]+(,[0-1]+)*");
     }
 
     /** Changes the state of the isRunning flag,
@@ -248,5 +228,6 @@ public class MainController {
         automata.init();
         cellGridPanelController.setAutomataReference(automata.getGrid());
         cellGridPanelController.emptyGrid();
+        step = 0;
     }
 }

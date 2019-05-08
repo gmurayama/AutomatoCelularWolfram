@@ -28,7 +28,6 @@ class PreferencesDialog extends JDialog {
     private JCheckBox displayBordersCheckBox;
     private JSpinner boardSizeSpinner;
     private JComboBox rulePresetComboBox;
-    private JTextField birthRulesTextField;
     private JTextField survivalRulesTextField;
 
     private final static Color randomColor = new Color(233, 233, 233);
@@ -53,7 +52,6 @@ class PreferencesDialog extends JDialog {
         pointerColorButton = new JButton("");
         displayBordersCheckBox = new JCheckBox("");
         boardSizeSpinner = new JSpinner();
-        birthRulesTextField = new JTextField();
         survivalRulesTextField = new JTextField();
         rulePresetComboBox = new JComboBox(GamePreferences.getRULES());
         random = new Random();
@@ -77,7 +75,6 @@ class PreferencesDialog extends JDialog {
         getBorderColorButton().setFocusPainted(false);
         getBoardSizeSpinner().setModel(spinnerModel);
         getSurvivalRulesTextField().setText(GamePreferences.getSurvivalPreset());
-        getBirthRulesTextField().setText(GamePreferences.getBirthPreset());
 
         //border layout: center
         JPanel verticalLayoutPanel;
@@ -114,8 +111,6 @@ class PreferencesDialog extends JDialog {
         gridLayoutPanel.add(getRulePresetComboBox());
         gridLayoutPanel.add(new JLabel (" Survival"));
         gridLayoutPanel.add(getSurvivalRulesTextField());
-        gridLayoutPanel.add(new JLabel (" Birth"));
-        gridLayoutPanel.add(getBirthRulesTextField());
         verticalLayoutPanel.add(gridLayoutPanel);
         dialogPane.add(verticalLayoutPanel,BorderLayout.CENTER);
 
@@ -188,7 +183,7 @@ class PreferencesDialog extends JDialog {
         }
     }
 
-    /** Changes the values of the survival and birth JTextFields depending on the
+    /** Changes the values of the survival JTextField depending on the
      * JComboBox selection
     * @param rulePresetComboBox JComboBox that holds the rule selection in the UI
      **/
@@ -196,12 +191,6 @@ class PreferencesDialog extends JDialog {
         int index = rulePresetComboBox.getSelectedIndex();
         String stringSurvivalRule = GamePreferences.getSurvivalPresetAt(index);
         getSurvivalRulesTextField().setText(stringSurvivalRule);
-        String stringBirthRule = GamePreferences.getBirthPresetAt(index);
-        getBirthRulesTextField().setText(stringBirthRule);
-    }
-
-    public String getBirthRulePreset(){
-        return getBirthRulesTextField().getText();
     }
 
     public String getSurvivalRulePreset(){
@@ -210,10 +199,6 @@ class PreferencesDialog extends JDialog {
 
     private JComboBox getRulePresetComboBox() {
         return rulePresetComboBox;
-    }
-
-    public JTextField getBirthRulesTextField() {
-        return birthRulesTextField;
     }
 
     public JTextField getSurvivalRulesTextField() {
