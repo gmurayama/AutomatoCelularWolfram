@@ -1,8 +1,8 @@
 # Automato Celular Elementar de Wolfram
 
-Projeto desenvolvimento para a disciplina de [Vida Artificial na Computação](professor.ufabc.edu.br/~graca.marietto/HomePage/ANoturno/index.html) da Universidade Federal do ABC, ministrada pela professora [Maria das Graças Bruno Marietto](mailto:graca.marietto@ufabc.edu.br) no 1º quadrimestre de 2019.
+Projeto desenvolvido para a disciplina de [Vida Artificial na Computação](professor.ufabc.edu.br/~graca.marietto/HomePage/ANoturno/index.html) da Universidade Federal do ABC, ministrada pela professora [Maria das Graças Bruno Marietto](mailto:graca.marietto@ufabc.edu.br) no 1º quadrimestre de 2019.
 
-Utilizado como base o projeto [The Game of Life](https://github.com/luisccastillo/Swing-GameOfLife) de [Luis Carlos Castillo](https://github.com/luisccastillo) e distribuído pela [licença MIT](LICENSE.md)
+Construído a partir do projeto [The Game of Life](https://github.com/luisccastillo/Swing-GameOfLife) de [Luis Carlos Castillo](https://github.com/luisccastillo) e distribuído pela [licença MIT](LICENSE.md)
 
 ## Descrição
 
